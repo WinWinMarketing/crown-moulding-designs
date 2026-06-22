@@ -8,6 +8,7 @@
  *   Omit it on the chooser index.
  */
 import "../styles/global.css";
+import "../styles/theme.css";
 import DesignSwitcher from "../components/DesignSwitcher.astro";
 
 // Base path so the favicon resolves under the GitHub Pages subpath (no trailing slash).
@@ -18,22 +19,39 @@ interface Props {
   description?: string;
   current?: string;
   bodyClass?: string;
+  /** Homepage only: enable the light/dark theme system (default light). */
+  theme?: boolean;
 }
 const {
   title = "Crown Moulding Website Design Options",
   description = "Pick your favourite homepage design for the crown moulding website.",
   current,
   bodyClass = "",
+  theme = false,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme ? "light" : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="noindex, nofollow" />
+    {
+      theme && (
+        <script is:inline>
+          (function () {
+            try {
+              var t = localStorage.getItem("cm-theme") || "light";
+              document.documentElement.setAttribute("data-theme", t);
+            } catch (e) {
+              document.documentElement.setAttribute("data-theme", "light");
+            }
+          })();
+        </script>
+      )
+    }
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />

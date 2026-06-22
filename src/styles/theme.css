@@ -1,0 +1,88 @@
+/* =====================================================================
+   Crown Moulding - merged homepage theme tokens
+   ---------------------------------------------------------------------
+   White + gold (light, DEFAULT) and black + gold (dark) via
+   [data-theme="dark"] on <html>. This file defines CSS custom properties
+   ONLY (no element styling), so it is inert on the chooser / 12 design
+   pages, which keep their own palettes. index.astro consumes these vars.
+===================================================================== */
+
+:root {
+  /* Type */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Fluid type scale */
+  --fs-eyebrow: 0.78rem;
+  --fs-body: 1.05rem;
+  --fs-lead: clamp(1.1rem, 1.6vw, 1.35rem);
+  --fs-h3: clamp(1.4rem, 2.4vw, 1.9rem);
+  --fs-h2: clamp(2rem, 4.2vw, 3.25rem);
+  --fs-hero: clamp(2.9rem, 7.5vw, 6rem);
+  --fs-stat: clamp(2.6rem, 5.5vw, 4.25rem);
+
+  /* Spacing + shape */
+  --container: 76rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4rem, 9vw, 8rem);
+  --radius: 4px;
+  --radius-lg: 10px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Gold accent is shared across both themes */
+  --gold: #c9a227;
+  --gold-soft: #e8d08a;
+  --gold-deep: #8a6500;
+
+  /* ---------- LIGHT THEME (default: white + gold) ---------- */
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-soft: #f7f5f0;
+  --bg-mute: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f7f5f0;
+
+  --text: #1a1714;
+  --text-muted: #5a5248;
+  --text-faint: #8a8175;
+
+  --accent: var(--gold);
+  --accent-strong: var(--gold-deep);   /* AA on light backgrounds (small text/links) */
+  --accent-contrast: #1a1714;          /* text that sits on a gold fill */
+
+  --border: rgba(26, 23, 20, 0.14);
+  --border-strong: rgba(26, 23, 20, 0.24);
+  --hairline: rgba(138, 101, 0, 0.55); /* editorial gold hairline rule */
+
+  --hero-veil: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.85));
+  --media-veil: linear-gradient(180deg, transparent 40%, rgba(26, 23, 20, 0.55));
+  --shadow: 0 18px 50px rgba(26, 23, 20, 0.1);
+  --on-media: #ffffff;                  /* text over imagery/video (both themes) */
+}
+
+[data-theme="dark"] {
+  /* ---------- DARK THEME (black + gold) ---------- */
+  color-scheme: dark;
+  --bg: #14130f;
+  --bg-soft: #1b1915;
+  --bg-mute: #26231c;
+  --surface: #1b1915;
+  --surface-2: #211e18;
+
+  --text: #f3efe6;
+  --text-muted: rgba(243, 239, 230, 0.72);
+  --text-faint: rgba(243, 239, 230, 0.5);
+
+  --accent: var(--gold);
+  --accent-strong: var(--gold-soft);    /* AA on dark backgrounds */
+  --accent-contrast: #14130f;           /* text that sits on a gold fill */
+
+  --border: rgba(201, 162, 39, 0.22);
+  --border-strong: rgba(201, 162, 39, 0.4);
+  --hairline: rgba(232, 208, 138, 0.6);
+
+  --hero-veil: linear-gradient(180deg, rgba(20, 19, 15, 0.35), rgba(20, 19, 15, 0.62) 55%, rgba(20, 19, 15, 0.9));
+  --media-veil: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.72));
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.5);
+  --on-media: #ffffff;
+}

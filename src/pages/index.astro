@@ -1,297 +1,604 @@
 ---
+/**
+ * Crown Moulding - merged homepage (the real site).
+ * Structure/format from design 4 (centered big-type, airy, minimal), re-skinned
+ * with the white+gold / black+gold theme tokens + Cormorant Garamond headlines,
+ * and made video-forward via MediaFrame slots. Copy from content.ts.
+ */
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import MediaFrame from "../components/MediaFrame.astro";
 import MouldingMotifs from "../components/MouldingMotifs.astro";
-import { designs, meta } from "../data/content";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer, media,
+} from "../data/content";
 
-// Base path so card links work under the GitHub Pages subpath (no trailing slash).
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const mediaUrl = (f: string) => (f ? `${base}/media/${f}` : undefined);
+
+// Built media URLs (undefined while empty -> MediaFrame shows a styled placeholder).
+const heroVid = mediaUrl(media.heroVideo.video);
+const heroPoster = mediaUrl(media.heroVideo.poster);
+const featureVid = mediaUrl(media.featureVideo.video);
+const featurePoster = mediaUrl(media.featureVideo.poster);
+const aboutImg = mediaUrl(media.about.src);
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
 ---
 
 <BaseLayout
-  title="Crown Moulding Website — Choose Your Design"
-  description="12 homepage design options for the crown moulding website. Click through and pick your favourite."
-  bodyClass="cm-chooser"
+  title="Crown Moulding & Finish Carpentry in the GTA"
+  description="Family-owned crown moulding, wainscoting, waffle ceilings, and trim across Toronto and the GTA since 2004. Most jobs done in a day. Free in-home quote, no pressure."
+  bodyClass="cm-home"
+  theme={true}
 >
   <Fragment slot="head">
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </Fragment>
 
-  <header class="chooser-hero">
-    <div class="chooser-hero__inner">
-      <p class="chooser-hero__eyebrow">WinWin Marketing · Design Options</p>
-      <h1 class="chooser-hero__title">
-        Choose the look for your<br /><span>Crown Moulding</span> website
-      </h1>
-      <p class="chooser-hero__sub">
-        Below are {designs.length} complete homepage designs. They all use the same content and layout flow,
-        so the only thing that changes is the style. Click any design to see the full page, then use the bar
-        at the bottom to flip between them. Tell us your favourite and we'll build it out in full.
-      </p>
-      <p class="chooser-hero__note">
-        Brand name, phone, photos, and reviews are placeholders for now.
-      </p>
-    </div>
-    <div class="chooser-hero__motif" aria-hidden="true">
-      <MouldingMotifs name="crown" class="chooser-hero__crown" />
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="container hdr__inner">
+      <a href="#home" class="logo" aria-label={`${meta.brandName} home`}>
+        <span class="logo__mark"><MouldingMotifs name="crown" class="logo__crown" /></span>
+        <span class="logo__text">{meta.brandName}</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__actions">
+        <a href={meta.phoneHref} class="hdr__phone">{meta.phone}</a>
+        <ThemeToggle />
+        <a href="#contact" class="btn btn--solid btn--sm">Get a Free Quote</a>
+      </div>
     </div>
   </header>
 
-  <main class="chooser-grid-wrap">
-    <ul class="chooser-grid">
+  <!-- HERO (video-forward, cinematic) -->
+  <section class="hero">
+    <div class="hero__media" aria-hidden={heroVid ? undefined : "true"}>
       {
-        designs.map((d, i) => (
-          <li class="card">
-            <a class="card__link" href={`${base}/designs/${d.id}/`}>
-              <div
-                class="card__preview"
-                style={`--bg:${d.swatches[0]};--accent:${d.swatches[1]};--ink:${d.swatches[2]}`}
-              >
-                <span class="card__num">{String(i + 1).padStart(2, "0")}</span>
-                <div class="card__mock">
-                  <span class="card__mock-bar" />
-                  <span class="card__mock-h" />
-                  <span class="card__mock-h card__mock-h--short" />
-                  <span class="card__mock-btn" />
-                  <div class="card__mock-tiles">
-                    <span /><span /><span />
-                  </div>
-                </div>
-                <div class="card__swatches">
-                  {d.swatches.map((s) => (
-                    <span class="card__swatch" style={`background:${s}`} />
-                  ))}
-                </div>
-              </div>
-              <div class="card__body">
-                <h2 class="card__name">{d.name}</h2>
-                <p class="card__note">{d.note}</p>
-                <span class="card__cta">View design <span aria-hidden="true">→</span></span>
-              </div>
-            </a>
-          </li>
+        heroVid ? (
+          <>
+            <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster={heroPoster}>
+              <source src={heroVid} type="video/mp4" />
+            </video>
+            {heroPoster && <img class="hero__poster" src={heroPoster} alt={media.heroVideo.alt} />}
+          </>
+        ) : (
+          <div class="hero__ph">
+            <MouldingMotifs name="room" class="hero__ph-art" />
+            <span class="hero__ph-tag">Cinematic hero video</span>
+          </div>
+        )
+      }
+      <div class="hero__scrim"></div>
+    </div>
+    <div class="container hero__inner">
+      <p class="hero__eyebrow">{hero.eyebrow}</p>
+      <h1 class="hero__title">{hero.headline}</h1>
+      <p class="hero__sub">{hero.subhead}</p>
+      <div class="hero__cta">
+        <a href={hero.primaryCta.href} class="btn btn--solid btn--lg">{hero.primaryCta.label}</a>
+        <a href={hero.secondaryCta.href} class="btn btn--light btn--lg">{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust">
+    <div class="container trust__inner">
+      {trustBar.map((t) => <span class="trust__item">{t}</span>)}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="section stats">
+    <div class="container stats__grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+            <div class="stat__label">{s.label}</div>
+          </div>
         ))
       }
-    </ul>
-  </main>
+    </div>
+  </section>
 
-  <footer class="chooser-foot">
-    <p>{meta.brandName} · Crown Moulding website design options · Prepared by WinWin Marketing · {meta.year}</p>
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="container about__grid">
+      <div class="about__media">
+        <MediaFrame as="image" src={aboutImg} alt={media.about.alt} ratio="4 / 5" motif={media.about.motif} flourish={true} caption={about.imageCaption} />
+      </div>
+      <div class="about__body">
+        <span class="kicker">About Us</span>
+        <h2 class="h2">{about.heading}</h2>
+        <p class="lead">{about.body}</p>
+        <ul class="tiles">
+          {
+            about.tiles.map((t) => (
+              <li class="tile">
+                <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d={icons[t.icon]} /></svg></span>
+                <span>{t.title}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section section--soft services">
+    <div class="container">
+      <div class="section__head">
+        <span class="kicker">{services.heading}</span>
+        <h2 class="h2">Crown Moulding &amp; Finish Carpentry</h2>
+      </div>
+      <div class="svc__grid">
+        {
+          services.items.map((s, i) => (
+            <article class="svc">
+              <MediaFrame as="image" src={mediaUrl(media.serviceShots[i].src)} alt={s.title} ratio="16 / 10" motif={media.serviceShots[i].motif} />
+              <div class="svc__body">
+                <span class="svc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={icons[s.icon]} /></svg></span>
+                <h3 class="svc__title">{s.title}</h3>
+                <p class="svc__blurb">{s.blurb}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE VIDEO -->
+  <section class="section feature">
+    <div class="container feature__grid">
+      <div class="feature__copy">
+        <span class="kicker">{guarantee.heading}</span>
+        <h2 class="h2">{guarantee.promise}</h2>
+        <p class="lead">{guarantee.speed}</p>
+        <ul class="ticks">
+          {guarantee.points.map((p) => <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6" /></svg>{p}</li>)}
+        </ul>
+        <a href="#contact" class="btn btn--solid btn--lg">{contact.heading}</a>
+      </div>
+      <div class="feature__media">
+        <MediaFrame as="video" video={featureVid} poster={featurePoster} alt={media.featureVideo.alt} ratio="16 / 10" motif={media.featureVideo.motif} flourish={true} caption="Most jobs done in a day" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work" class="section gallery">
+    <div class="container">
+      <div class="section__head">
+        <span class="kicker">{gallery.heading}</span>
+        <h2 class="h2">Recent Projects Across the GTA</h2>
+        <p class="section__sub">{gallery.subheading}</p>
+      </div>
+      <div class="gal__grid">
+        {
+          gallery.items.map((g, i) => {
+            const cap = `${g.type} · ${g.city}`;
+            return (
+              <button type="button" class="gal__item" data-lightbox-open data-caption={cap} aria-label={`View ${cap}`}>
+                <MediaFrame as="image" src={mediaUrl(media.galleryShots[i].src)} alt={cap} ratio="4 / 3" motif={media.galleryShots[i].motif} caption={cap} />
+              </button>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section section--soft process">
+    <div class="container">
+      <div class="section__head">
+        <span class="kicker">{process.heading}</span>
+        <h2 class="h2">Simple, Tidy, Done Right</h2>
+      </div>
+      <ol class="steps">
+        {
+          process.steps.map((p) => (
+            <li class="step">
+              <span class="step__num">{String(p.number).padStart(2, "0")}</span>
+              <h3 class="step__title">{p.title}</h3>
+              <p class="step__blurb">{p.blurb}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews">
+    <div class="container">
+      <div class="section__head">
+        <span class="kicker">{reviews.heading}</span>
+        <div class="reviews__rating"><span class="stars" aria-hidden="true">★★★★★</span><span>{reviews.rating.toFixed(1)} average rating</span></div>
+      </div>
+      <div class="rev__grid">
+        {
+          reviews.items.map((r) => (
+            <blockquote class="rev">
+              <span class="rev__stars" aria-hidden="true">{"★".repeat(r.stars)}</span>
+              <p class="rev__quote">{r.quote}</p>
+              <footer class="rev__by">{r.name} · {r.city}</footer>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section section--soft partners">
+    <div class="container">
+      <span class="kicker kicker--center">{partners.heading}</span>
+      <div class="partners__row">
+        {Array.from({ length: partners.count }).map(() => <span class="partners__slot">Logo</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section areas">
+    <div class="container areas__grid">
+      <div>
+        <span class="kicker">{serviceAreas.heading}</span>
+        <h2 class="h2">{serviceAreas.intro}</h2>
+      </div>
+      <ul class="areas__list">
+        {serviceAreas.cities.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section section--soft contact">
+    <div class="container contact__grid">
+      <div class="contact__intro">
+        <span class="kicker">Free In-Home Quote</span>
+        <h2 class="h2">{contact.heading}</h2>
+        <p class="lead">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone">{contact.altContact}</a>
+      </div>
+      <form class="form" onsubmit="return false" novalidate aria-label="Request a free quote">
+        <div class="form__row">
+          {
+            contact.fields.slice(0, 3).map((f) => {
+              const ac = { name: "name", phone: "tel", email: "email" };
+              return (
+                <label class="field">
+                  <span>{f.label}{f.required && " *"}</span>
+                  <input type={f.type} name={f.name} placeholder={f.label} autocomplete={ac[f.name]} />
+                </label>
+              );
+            })
+          }
+        </div>
+        <label class="field">
+          <span>Service</span>
+          <select name="service" autocomplete="off">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" rows="4" placeholder="Tell us about your project"></textarea>
+        </label>
+        <label class="field field--file">
+          <span>Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" />
+        </label>
+        <button type="submit" class="btn btn--solid btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="container foot__inner">
+      <div class="foot__brand">
+        <span class="logo__text">{meta.brandName}</span>
+        <p>{meta.tagline} in the {meta.serviceRegion}, family-owned since 2004.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4>Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4>More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social">{footer.socials.map((s) => <a href="#">{s}</a>)}</div>
+      </div>
+    </div>
+    <div class="container foot__legal">{meta.brandName} © {meta.year}. All rights reserved.</div>
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" data-lightbox hidden>
+    <button class="lightbox__close" data-lightbox-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+    <figure class="lightbox__inner">
+      <div class="lightbox__media" data-lightbox-media></div>
+      <figcaption class="lightbox__cap" data-lightbox-cap></figcaption>
+    </figure>
+  </div>
 </BaseLayout>
 
 <style>
-  :global(body.cm-chooser) {
+  :global(body.cm-home) {
     margin: 0;
-    background: #0d0f14;
-    color: #e9ebef;
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  }
-
-  .chooser-hero {
-    position: relative;
-    overflow: hidden;
-    padding: clamp(3rem, 8vw, 6rem) 1.5rem clamp(2rem, 5vw, 3.5rem);
-    background:
-      radial-gradient(120% 140% at 85% -10%, rgba(200, 146, 61, 0.18), transparent 55%),
-      linear-gradient(180deg, #11151d, #0d0f14);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .chooser-hero__inner {
-    max-width: 56rem;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  .chooser-hero__eyebrow {
-    margin: 0 0 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #c8923d;
-  }
-  .chooser-hero__title {
-    margin: 0 0 1.25rem;
-    font-family: "Sora", sans-serif;
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    font-size: clamp(2rem, 5.5vw, 3.5rem);
-  }
-  .chooser-hero__title span {
-    color: #c8923d;
-  }
-  .chooser-hero__sub {
-    margin: 0 0 0.75rem;
-    max-width: 46rem;
-    font-size: clamp(1rem, 2.2vw, 1.15rem);
-    line-height: 1.6;
-    color: #b9bec8;
-  }
-  .chooser-hero__note {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #6f7682;
-    font-style: italic;
-  }
-  .chooser-hero__motif {
-    position: absolute;
-    top: -2rem;
-    right: -2rem;
-    width: clamp(10rem, 30vw, 22rem);
-    color: rgba(200, 146, 61, 0.14);
-    z-index: 0;
-  }
-  .chooser-hero__crown {
-    width: 100%;
-    height: auto;
-  }
-
-  .chooser-grid-wrap {
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: clamp(2rem, 5vw, 3.5rem) 1.5rem 5rem;
-  }
-  .chooser-grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
-    gap: 1.5rem;
-  }
-
-  .card {
-    border-radius: 1rem;
-    overflow: hidden;
-    background: #161922;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-  }
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(200, 146, 61, 0.55);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-  }
-  .card__link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .card__preview {
-    position: relative;
-    aspect-ratio: 16 / 10;
     background: var(--bg);
-    padding: 1.1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
   }
-  .card__num {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.85rem;
-    font-family: "Sora", sans-serif;
-    font-weight: 800;
-    font-size: 2.25rem;
-    line-height: 1;
-    color: var(--accent);
-    opacity: 0.55;
-  }
-  /* tiny abstract homepage mock so each card hints at a real layout */
-  .card__mock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    width: 78%;
-  }
-  .card__mock-bar {
-    height: 6px;
-    width: 55%;
-    border-radius: 3px;
-    background: var(--accent);
-  }
-  .card__mock-h {
-    height: 10px;
-    width: 90%;
-    border-radius: 3px;
-    background: var(--ink);
-    opacity: 0.85;
-  }
-  .card__mock-h--short {
-    width: 60%;
-    opacity: 0.55;
-  }
-  .card__mock-btn {
-    margin-top: 0.15rem;
-    height: 12px;
-    width: 38%;
-    border-radius: 6px;
-    background: var(--accent);
-  }
-  .card__mock-tiles {
-    margin-top: 0.55rem;
-    display: flex;
-    gap: 0.35rem;
-  }
-  .card__mock-tiles span {
-    height: 16px;
-    flex: 1;
-    border-radius: 4px;
-    background: var(--ink);
-    opacity: 0.18;
-  }
-  .card__swatches {
-    position: absolute;
-    bottom: 0.7rem;
-    left: 1.1rem;
-    display: flex;
-    gap: 0.3rem;
-  }
-  .card__swatch {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-  }
+  :global(body.cm-home) * { box-sizing: border-box; }
 
-  .card__body {
-    padding: 1rem 1.15rem 1.25rem;
-  }
-  .card__name {
-    margin: 0 0 0.3rem;
-    font-family: "Sora", sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-  }
-  .card__note {
-    margin: 0 0 0.85rem;
-    font-size: 0.85rem;
-    color: #9aa1ac;
-    line-height: 1.45;
-  }
-  .card__cta {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #c8923d;
-  }
-  .card:hover .card__cta span {
-    margin-left: 0.15rem;
-  }
+  .container { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); }
 
-  .chooser-foot {
-    text-align: center;
-    padding: 2rem 1.5rem 3rem;
-    color: #5e6571;
-    font-size: 0.8rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  /* Type helpers */
+  .kicker {
+    display: inline-block; font-family: var(--font-body); text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: var(--fs-eyebrow); font-weight: 600;
+    color: var(--accent-strong); margin-bottom: 0.85rem; position: relative; padding-left: 2.4rem;
   }
-  .chooser-foot p {
-    margin: 0;
+  .kicker::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 1.8rem; height: 1px; background: var(--hairline); }
+  .kicker--center { padding-left: 0; }
+  .kicker--center::before { display: none; }
+  .h2 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.08; letter-spacing: 0.005em; margin: 0 0 1rem; color: var(--text); }
+  .lead { font-size: var(--fs-lead); color: var(--text-muted); margin: 0 0 1.5rem; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em;
+    padding: 0.7rem 1.4rem; border-radius: var(--radius); border: 1px solid transparent;
+    text-decoration: none; cursor: pointer; transition: all 0.18s var(--ease);
+  }
+  .btn--sm { padding: 0.55rem 1.1rem; font-size: 0.88rem; }
+  .btn--lg { padding: 0.95rem 1.9rem; font-size: 1rem; }
+  .btn--full { width: 100%; }
+  .btn--solid { background: var(--accent); color: var(--accent-contrast); }
+  .btn--solid:hover { background: var(--gold-soft); transform: translateY(-2px); }
+  .btn--outline { border-color: var(--border-strong); color: var(--text); background: transparent; }
+  .btn--outline:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .btn--light { border-color: rgba(255, 255, 255, 0.55); color: #fff; background: rgba(255, 255, 255, 0.06); }
+  .btn--light:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; }
+
+  /* Header */
+  .hdr {
+    position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+  }
+  .hdr__inner { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; gap: 1.25rem; }
+  .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .logo__mark { width: 2rem; height: 2rem; color: var(--accent); display: inline-flex; }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__text { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; color: var(--text); letter-spacing: 0.01em; }
+  .nav { display: flex; gap: 1.9rem; }
+  .nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.15s; }
+  .nav a:hover { color: var(--accent-strong); }
+  .hdr__actions { display: flex; align-items: center; gap: 1rem; }
+  .hdr__phone { color: var(--text); font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .hdr__phone:hover { color: var(--accent-strong); }
+
+  /* Hero */
+  .hero { position: relative; min-height: min(88vh, 760px); display: flex; align-items: flex-end; overflow: hidden; color: #fff; }
+  .hero__media { position: absolute; inset: 0; z-index: 0; }
+  .hero__video, .hero__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero__poster { display: none; }
+  .hero__ph { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(135deg, #1f1c15, #2c2820 60%, #14120d); color: var(--gold-soft); }
+  .hero__ph-art { width: 64%; height: 64%; opacity: 0.34; }
+  .hero__ph-tag { position: absolute; bottom: 1.1rem; right: 1.2rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.25); border-radius: 999px; padding: 0.25rem 0.7rem; }
+  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,13,9,0.45) 0%, rgba(15,13,9,0.35) 35%, rgba(15,13,9,0.82) 100%); }
+  .hero__inner { position: relative; z-index: 2; padding-top: clamp(5rem, 14vw, 9rem); padding-bottom: clamp(2.5rem, 6vw, 4.5rem); max-width: 52rem; }
+  .hero__eyebrow { text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.8rem; font-weight: 600; color: var(--gold-soft); margin: 0 0 1.1rem; }
+  .hero__title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-hero); line-height: 1.02; letter-spacing: 0.005em; margin: 0 0 1.4rem; text-wrap: balance; }
+  .hero__sub { font-size: clamp(1.05rem, 2vw, 1.3rem); color: rgba(255, 255, 255, 0.86); margin: 0 0 2rem; max-width: 40rem; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* Trust strip */
+  .trust { background: var(--bg-soft); border-bottom: 1px solid var(--border); }
+  .trust__inner { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 2.25rem; padding: 1.1rem var(--gutter); }
+  .trust__item { font-size: 0.9rem; font-weight: 600; color: var(--text); position: relative; padding-left: 1.5rem; }
+  .trust__item::before { content: "✓"; position: absolute; left: 0; color: var(--accent-strong); font-weight: 800; }
+
+  /* Sections */
+  .section { padding: var(--section-y) 0; }
+  .section--soft { background: var(--bg-soft); }
+  .section__head { max-width: 44rem; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
+  .section__head .kicker { padding-left: 0; }
+  .section__head .kicker::before { display: none; }
+  .section__sub { color: var(--text-muted); margin: 0; }
+
+  /* Stats */
+  .stats { padding: clamp(3rem, 6vw, 4.5rem) 0; }
+  .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
+  .stat__num { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-stat); line-height: 1; color: var(--text); }
+  .stat__label { margin-top: 0.5rem; font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+
+  /* About */
+  .about__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .tiles { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .tile { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .tile__icon { width: 1.9rem; height: 1.9rem; flex: none; color: var(--accent-strong); }
+  .tile__icon svg { width: 100%; height: 100%; }
+
+  /* Services */
+  .svc__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+  .svc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: transform 0.18s var(--ease), border-color 0.18s var(--ease), box-shadow 0.18s var(--ease); }
+  .svc:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .svc :global(.mf) { border: none; border-radius: 0; border-bottom: 1px solid var(--border); }
+  .svc__body { padding: 1.5rem; }
+  .svc__icon { width: 2.4rem; height: 2.4rem; color: var(--accent-strong); margin-bottom: 0.75rem; }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 600; margin: 0 0 0.4rem; color: var(--text); }
+  .svc__blurb { margin: 0; color: var(--text-muted); font-size: 0.96rem; }
+
+  /* Feature video */
+  .feature__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .ticks { list-style: none; margin: 0 0 1.75rem; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .ticks li { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; color: var(--text); }
+  .ticks svg { width: 1.3rem; height: 1.3rem; color: var(--accent-strong); flex: none; }
+
+  /* Gallery */
+  .gal__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+  .gal__item { padding: 0; border: none; background: none; cursor: pointer; display: block; transition: transform 0.18s var(--ease); }
+  .gal__item:hover { transform: translateY(-3px); }
+  .gal__item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Process */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .step { text-align: left; padding: 2rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .step__num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; color: var(--accent); line-height: 1; display: block; margin-bottom: 0.75rem; }
+  .step__title { font-family: var(--font-display); font-size: var(--fs-h3); margin: 0 0 0.4rem; color: var(--text); font-weight: 600; }
+  .step__blurb { color: var(--text-muted); margin: 0; }
+
+  /* Reviews */
+  .reviews__rating { display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: var(--text-muted); font-weight: 600; }
+  .stars, .rev__stars { color: var(--accent); letter-spacing: 0.12em; }
+  .rev__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .rev { margin: 0; background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: 1.85rem; }
+  .rev__quote { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.4; color: var(--text); margin: 0.75rem 0; font-style: italic; }
+  .rev__by { font-weight: 700; color: var(--text); font-size: 0.9rem; }
+
+  /* Partners */
+  .partners .container { text-align: center; }
+  .partners__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; }
+  .partners__slot { display: grid; place-items: center; width: 9rem; height: 3.75rem; border: 1px dashed var(--border-strong); border-radius: var(--radius); color: var(--text-faint); font-size: 0.85rem; }
+
+  /* Areas */
+  .areas__grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: center; }
+  .areas__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .areas__list li { padding: 0.65rem 0.95rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-weight: 600; color: var(--text); }
+
+  /* Contact */
+  .contact__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); }
+  .contact__phone { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; color: var(--accent-strong); text-decoration: none; }
+  .form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 3vw, 2.25rem); }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .field span { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+  .field input, .field select, .field textarea { border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 0.7rem 0.85rem; font: inherit; color: var(--text); background: var(--bg); width: 100%; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+
+  /* Footer */
+  .foot { background: var(--bg-mute); border-top: 1px solid var(--border); padding: 3.5rem 0 0; }
+  .foot__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; }
+  .foot__brand p { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+  .foot__col h4 { font-family: var(--font-display); color: var(--text); font-size: 1.05rem; margin: 0 0 0.9rem; font-weight: 600; }
+  .foot__col a, .foot__col p { display: block; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin: 0 0 0.5rem; }
+  .foot__col a:hover { color: var(--accent-strong); }
+  .foot__badge { display: inline-block; border: 1px solid var(--accent); color: var(--accent-strong); border-radius: var(--radius); padding: 0.25rem 0.6rem; font-size: 0.8rem; margin-bottom: 0.75rem; }
+  .foot__social { display: flex; gap: 1rem; }
+  .foot__legal { border-top: 1px solid var(--border); padding-top: 1.5rem; padding-bottom: 1.5rem; font-size: 0.82rem; color: var(--text-faint); }
+
+  /* Lightbox */
+  .lightbox { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 1.5rem; background: rgba(8, 7, 5, 0.85); backdrop-filter: blur(4px); }
+  .lightbox[hidden] { display: none; }
+  .lightbox__inner { margin: 0; max-width: min(64rem, 92vw); width: 100%; }
+  .lightbox__media { width: 100%; }
+  .lightbox__media :global(.mf) { width: 100%; max-height: 78vh; }
+  .lightbox__cap { margin-top: 0.85rem; text-align: center; color: #fff; font-weight: 500; letter-spacing: 0.02em; }
+  .lightbox__close { position: fixed; top: 1.25rem; right: 1.25rem; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.4); color: #fff; cursor: pointer; }
+  .lightbox__close:hover { border-color: #fff; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .about__grid, .feature__grid, .areas__grid, .contact__grid { grid-template-columns: 1fr; }
+    .feature__media { order: -1; }
+    .svc__grid, .rev__grid, .steps { grid-template-columns: 1fr 1fr; }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .gal__grid { grid-template-columns: 1fr 1fr; }
+    .gal__item--tall { grid-row: auto; }
+  }
+  @media (max-width: 640px) {
+    .nav, .hdr__phone { display: none; }
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+    .svc__grid, .rev__grid, .steps, .tiles, .areas__list, .form__row { grid-template-columns: 1fr; }
+    .foot__inner { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // Animated count-up for stats.
+  const nums = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / 1400, 1);
+        const v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        el.textContent = v.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  nums.forEach((el) => io.observe(el));
+
+  // Gallery lightbox.
+  const lb = document.querySelector<HTMLElement>("[data-lightbox]");
+  const lbMedia = document.querySelector<HTMLElement>("[data-lightbox-media]");
+  const lbCap = document.querySelector<HTMLElement>("[data-lightbox-cap]");
+  const open = (mf: string, cap: string) => {
+    if (!lb || !lbMedia || !lbCap) return;
+    lbMedia.innerHTML = mf;
+    lbCap.textContent = cap;
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+  const close = () => {
+    if (!lb) return;
+    lb.hidden = true;
+    if (lbMedia) lbMedia.innerHTML = "";
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll<HTMLButtonElement>("[data-lightbox-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mf = btn.querySelector(".mf");
+      open(mf ? mf.outerHTML : "", btn.dataset.caption || "");
+    });
+  });
+  document.querySelector("[data-lightbox-close]")?.addEventListener("click", close);
+  lb?.addEventListener("click", (e) => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+</script>

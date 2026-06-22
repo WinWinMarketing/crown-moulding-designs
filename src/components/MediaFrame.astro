@@ -1,0 +1,221 @@
+---
+/**
+ * Framed media slot used across the homepage: hero, feature video, gallery,
+ * about, service cards. Renders a real <video>/<img> when a source is given,
+ * otherwise an elegant gold-framed placeholder with on-theme moulding art so the
+ * page looks intentional before Higgsfield assets land. Drop assets in later by
+ * passing `video`/`poster`/`src` (1:1 swap, same layout).
+ *
+ * Video slots: autoplay + muted + loop + playsinline, with a poster and a
+ * prefers-reduced-motion fallback that hides the video and shows the poster.
+ */
+import MouldingMotifs from "./MouldingMotifs.astro";
+
+interface Props {
+  as?: "image" | "video";
+  src?: string;        // image URL (base-aware if from /public)
+  video?: string;      // mp4 URL (base-aware if from /public)
+  poster?: string;     // poster/still URL
+  alt?: string;
+  caption?: string;    // small overlay caption, e.g. "Crown Moulding · Vaughan"
+  ratio?: string;      // CSS aspect-ratio, default "16 / 9"
+  motif?: "room" | "coffered" | "wainscot" | "crown" | "door";
+  eager?: boolean;     // true for the LCP hero
+  flourish?: boolean;  // show editorial corner flourishes
+  class?: string;
+}
+const {
+  as = "image",
+  src,
+  video,
+  poster,
+  alt = "",
+  caption,
+  ratio = "16 / 9",
+  motif = "room",
+  eager = false,
+  flourish = false,
+  class: className = "",
+} = Astro.props;
+
+const isVideo = as === "video";
+const hasReal = isVideo ? Boolean(video) : Boolean(src);
+---
+
+<figure class={`mf ${className}`} style={`--mf-ratio:${ratio}`} data-media-frame>
+  {
+    hasReal && isVideo && (
+      <>
+        <video
+          class="mf__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={poster}
+          aria-label={alt}
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+        {poster && <img class="mf__poster" src={poster} alt={alt} />}
+      </>
+    )
+  }
+  {
+    hasReal && !isVideo && (
+      <img
+        class="mf__img"
+        src={src}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchpriority={eager ? "high" : undefined}
+      />
+    )
+  }
+  {
+    !hasReal && (
+      <div class="mf__placeholder" role="img" aria-label={alt || "Project photo placeholder"}>
+        <MouldingMotifs name={motif} class="mf__art" />
+        <span class="mf__tag">{isVideo ? "Video" : "Photo"}</span>
+      </div>
+    )
+  }
+
+  {
+    isVideo && (
+      <span class="mf__play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+      </span>
+    )
+  }
+
+  {
+    flourish && (
+      <>
+        <MouldingMotifs name="corner" class="mf__corner mf__corner--tl" />
+        <MouldingMotifs name="corner" class="mf__corner mf__corner--br" />
+      </>
+    )
+  }
+
+  {caption && <figcaption class="mf__cap">{caption}</figcaption>}
+</figure>
+
+<style>
+  .mf {
+    position: relative;
+    margin: 0;
+    aspect-ratio: var(--mf-ratio, 16 / 9);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-strong);
+    background: var(--surface-2);
+  }
+  .mf__video,
+  .mf__img,
+  .mf__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mf__poster {
+    display: none;
+  }
+
+  .mf__placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+      linear-gradient(150deg, var(--bg-soft), var(--bg-mute));
+    color: var(--accent);
+  }
+  .mf__art {
+    width: 66%;
+    height: 66%;
+    opacity: 0.42;
+  }
+  .mf__tag {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+  }
+
+  /* Play badge for video slots (placeholder or real) */
+  .mf__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3.6rem;
+    height: 3.6rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 92%, transparent);
+    color: var(--accent-contrast);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+  }
+
+  .mf__corner {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    color: var(--accent);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .mf__corner--tl {
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+  .mf__corner--br {
+    bottom: 0.6rem;
+    right: 0.6rem;
+    transform: rotate(180deg);
+  }
+
+  .mf__cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--on-media);
+    background: var(--media-veil);
+  }
+
+  /* Reduced motion: hide the video, reveal the poster still. */
+  @media (prefers-reduced-motion: reduce) {
+    .mf__video {
+      display: none;
+    }
+    .mf__poster {
+      display: block;
+    }
+  }
+</style>
