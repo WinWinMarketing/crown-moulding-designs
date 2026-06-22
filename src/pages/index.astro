@@ -343,6 +343,15 @@ const icons: Record<string, string> = {
     <div class="container foot__legal">{meta.brandName} © {meta.year}. All rights reserved.</div>
   </footer>
 
+  <!-- STICKY MOBILE CTA (conversion bar, mobile only) -->
+  <div class="mcta" aria-label="Quick contact">
+    <a href={meta.phoneHref} class="mcta__btn mcta__btn--call">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+      Call Now
+    </a>
+    <a href="#contact" class="mcta__btn mcta__btn--quote">Free Quote</a>
+  </div>
+
   <!-- LIGHTBOX -->
   <div class="lightbox" data-lightbox hidden>
     <button class="lightbox__close" data-lightbox-close aria-label="Close">
@@ -535,6 +544,12 @@ const icons: Record<string, string> = {
   .lightbox__close { position: fixed; top: 1.25rem; right: 1.25rem; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.4); color: #fff; cursor: pointer; }
   .lightbox__close:hover { border-color: #fff; }
 
+  /* Sticky mobile call/quote bar (mobile only) */
+  .mcta { display: none; }
+  .mcta__btn { display: flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.85rem; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .mcta__btn--call { border: 1px solid var(--border-strong); color: var(--text); background: var(--surface); }
+  .mcta__btn--quote { background: var(--accent); color: var(--accent-contrast); }
+
   /* Responsive */
   @media (max-width: 900px) {
     .about__grid, .feature__grid, .areas__grid, .contact__grid { grid-template-columns: 1fr; }
@@ -550,6 +565,15 @@ const icons: Record<string, string> = {
     .svc__grid, .rev__grid, .steps, .tiles, .areas__list, .form__row { grid-template-columns: 1fr; }
     .foot__inner { grid-template-columns: 1fr; }
     .gal__grid { grid-template-columns: 1fr; }
+    /* room for the sticky bar so it never covers the footer */
+    :global(body.cm-home) { padding-bottom: 4.75rem; }
+    .mcta {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem;
+      padding: 0.6rem 0.8rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(10px); border-top: 1px solid var(--border);
+    }
   }
 </style>
 
