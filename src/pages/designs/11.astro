@@ -1,0 +1,1307 @@
+---
+/**
+ * DESIGN 11 — Espresso & Champagne (Dark-Luxe Dramatic)
+ * Palette: espresso #241C16 dark background, champagne/gold #D8C39A accent, cream #F3ECE0 text.
+ * Type: Cormorant Garamond (serif display) + Jost (light geometric sans body).
+ * Dark-luxe: predominantly espresso with champagne thin-line accents, moody negative space,
+ * refined hairline gold rules. High-end, dramatic, editorial.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MouldingMotifs from "../../components/MouldingMotifs.astro";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer,
+} from "../../data/content";
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
+---
+
+<BaseLayout title="Design 11 - Espresso & Champagne" current="11" bodyClass="d11">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="wrap hdr__inner">
+      <a href="#home" class="logo" aria-label={`${meta.brandName} home`}>
+        <span class="logo__icon" aria-hidden="true">
+          <MouldingMotifs name="crown" class="logo__crown" />
+        </span>
+        <span class="logo__name">{meta.brandName}</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__right">
+        <a href={meta.phoneHref} class="hdr__phone">{meta.phone}</a>
+        <a href="#contact" class="btn btn--champ">Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO: Full-bleed dark, text centered with flanking hairline rules -->
+  <section class="hero">
+    <div class="hero__art" aria-hidden="true">
+      <MouldingMotifs name="room" class="hero__room" />
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div class="hero__rule-wrap" aria-hidden="true">
+        <span class="hero__hairline"></span>
+        <MouldingMotifs name="corner" class="hero__corner" />
+        <span class="hero__hairline"></span>
+      </div>
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 class="hero__title">{hero.headline}</h1>
+      <div class="hero__divider" aria-hidden="true"></div>
+      <p class="hero__sub">{hero.subhead}</p>
+      <div class="hero__cta">
+        <a href={hero.primaryCta.href} class="btn btn--champ btn--lg">{hero.primaryCta.label}</a>
+        <a href={hero.secondaryCta.href} class="btn btn--outline btn--lg">{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust">
+    <div class="wrap trust__inner">
+      {trustBar.map((t) => (
+        <span class="trust__item">{t}</span>
+      ))}
+    </div>
+  </div>
+
+  <!-- STATS: Dark band with champagne numerals -->
+  <section class="stats">
+    <div class="wrap stats__grid">
+      {stats.map((s) => (
+        <div class="stat">
+          <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+          <div class="stat__rule" aria-hidden="true"></div>
+          <div class="stat__label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ABOUT: Split layout, image left, text right on cream panel -->
+  <section id="about" class="section about">
+    <div class="wrap about__grid">
+      <div class="about__media">
+        <div class="ph ph--espresso">
+          <MouldingMotifs name="wainscot" class="ph__art" />
+          <span class="ph__cap">{about.imageCaption}</span>
+        </div>
+        <div class="about__accent-bar" aria-hidden="true"></div>
+      </div>
+      <div class="about__body">
+        <p class="eyebrow eyebrow--cream">About Us</p>
+        <h2 class="h2 h2--light">{about.heading}</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+        <p class="about__lead">{about.body}</p>
+        <ul class="tiles">
+          {about.tiles.map((t) => (
+            <li class="tile">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d={icons[t.icon]} />
+                </svg>
+              </span>
+              <span class="tile__txt">{t.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES: Dark cards with champagne top border -->
+  <section id="services" class="section section--deeper services">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--champ">{services.heading}</p>
+        <h2 class="h2 h2--light">Crown Moulding &amp; Finish Carpentry</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      </div>
+      <div class="svc__grid">
+        {services.items.map((s) => (
+          <article class="svc">
+            <div class="svc__top-line" aria-hidden="true"></div>
+            <div class="svc__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d={icons[s.icon]} />
+              </svg>
+            </div>
+            <h3 class="svc__title">{s.title}</h3>
+            <p class="svc__blurb">{s.blurb}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE: Champagne-on-espresso with large serif quote -->
+  <section class="guarantee">
+    <div class="wrap guarantee__inner">
+      <div class="guarantee__deco" aria-hidden="true">
+        <MouldingMotifs name="crown" class="guarantee__crown" />
+      </div>
+      <div class="guarantee__main">
+        <p class="eyebrow eyebrow--champ">{guarantee.heading}</p>
+        <blockquote class="guarantee__promise">"{guarantee.promise}"</blockquote>
+        <p class="guarantee__speed">{guarantee.speed}</p>
+      </div>
+      <ul class="guarantee__points">
+        {guarantee.points.map((p) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 6" /></svg>
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALLERY: Dark mosaic tiles with champagne captions -->
+  <section id="work" class="section section--deeper gallery">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--champ">{gallery.heading}</p>
+        <h2 class="h2 h2--light">Recent Projects Across the GTA</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+        <p class="section__sub">{gallery.subheading}</p>
+      </div>
+      <div class="gal__grid">
+        {gallery.items.map((g, i) => (
+          <figure class={`gal__item${i % 5 === 0 ? " gal__item--tall" : ""}`}>
+            <MouldingMotifs name={i % 3 === 0 ? "coffered" : i % 3 === 1 ? "wainscot" : "room"} class="gal__art" />
+            <figcaption class="gal__cap">
+              <span class="gal__type">{g.type}</span>
+              <span class="gal__city">{g.city}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS: Three steps with large champagne numeral and vertical rule -->
+  <section class="section process">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--cream">{process.heading}</p>
+        <h2 class="h2 h2--light">Simple, Tidy, Done Right</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      </div>
+      <ol class="steps">
+        {process.steps.map((p, i) => (
+          <li class="step">
+            <span class="step__num" aria-hidden="true">{p.number}</span>
+            {i < process.steps.length - 1 && <span class="step__connector" aria-hidden="true"></span>}
+            <div class="step__body">
+              <h3 class="step__title">{p.title}</h3>
+              <p class="step__blurb">{p.blurb}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS: Dark cards, champagne stars -->
+  <section class="section section--deeper reviews">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--champ">{reviews.heading}</p>
+        <div class="reviews__rating">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <span class="rating__val">{reviews.rating.toFixed(1)} average rating</span>
+        </div>
+      </div>
+      <div class="rev__grid">
+        {reviews.items.map((r) => (
+          <blockquote class="rev">
+            <span class="rev__stars" aria-label={`${r.stars} stars`}>{"★".repeat(r.stars)}</span>
+            <p class="rev__quote">{r.quote}</p>
+            <footer class="rev__by">{r.name} · {r.city}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section partners">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--cream eyebrow--center">{partners.heading}</p>
+      <div class="partners__row">
+        {Array.from({ length: partners.count }).map(() => (
+          <span class="partners__slot">Logo</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section section--deeper areas">
+    <div class="wrap areas__inner">
+      <div class="areas__intro">
+        <p class="eyebrow eyebrow--champ">{serviceAreas.heading}</p>
+        <h2 class="h2 h2--light">{serviceAreas.intro}</h2>
+      </div>
+      <ul class="areas__list">
+        {serviceAreas.cities.map((c) => (
+          <li class="areas__city">{c}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT: Full visual form on espresso, champagne accents -->
+  <section id="contact" class="section contact">
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <p class="eyebrow eyebrow--champ">Free Estimate</p>
+        <h2 class="h2 h2--light">{contact.heading}</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+        <p class="contact__sub">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone" aria-label={`Call us at ${meta.phone}`}>{contact.altContact}</a>
+        <div class="contact__art" aria-hidden="true">
+          <MouldingMotifs name="corner" class="contact__corner" />
+        </div>
+      </div>
+      <form class="form" onsubmit="return false" aria-label="Free estimate request form">
+        <div class="form__row">
+          {contact.fields.slice(0, 3).map((f) => (
+            <label class="field">
+              <span class="field__label">{f.label}{f.required && " *"}</span>
+              <input type={f.type} name={f.name} placeholder={f.label} aria-required={f.required ? "true" : "false"} />
+            </label>
+          ))}
+        </div>
+        <label class="field">
+          <span class="field__label">Service</span>
+          <select name="service">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Message</span>
+          <textarea name="message" rows={4} placeholder="Tell us about your project"></textarea>
+        </label>
+        <label class="field field--file">
+          <span class="field__label">Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" />
+        </label>
+        <button type="submit" class="btn btn--champ btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <span class="foot__brand-name">{meta.brandName}</span>
+        <p class="foot__tagline">{meta.tagline} in the {meta.serviceRegion}.</p>
+      </div>
+      <div class="foot__col">
+        <h4 class="foot__heading">Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4 class="foot__heading">Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4 class="foot__heading">More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social">
+          {footer.socials.map((s) => <a href="#">{s}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="wrap foot__legal">{meta.brandName} &copy; {meta.year}. All rights reserved.</div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     DESIGN 11 — ESPRESSO & CHAMPAGNE
+     All rules namespaced under body.d11
+     ============================================================ */
+
+  :global(body.d11) {
+    --esp: #241c16;           /* espresso dark */
+    --esp-mid: #2f231a;       /* mid espresso */
+    --esp-lift: #3a2b20;      /* lighter espresso for cards */
+    --champ: #d8c39a;         /* champagne gold */
+    --champ-soft: #e8d9b8;    /* light champagne */
+    --champ-dim: rgba(216, 195, 154, 0.35); /* champagne at 35% */
+    --cream: #f3ece0;         /* cream text */
+    --cream-mid: rgba(243, 236, 224, 0.75); /* muted cream */
+    --cream-dim: rgba(243, 236, 224, 0.45); /* very muted */
+    --rule: rgba(216, 195, 154, 0.25);      /* hairline color */
+    margin: 0;
+    background: var(--esp);
+    color: var(--cream);
+    font-family: "Jost", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  :global(body.d11) * { box-sizing: border-box; }
+
+  /* ---- Layout shell ---- */
+  .wrap { max-width: 78rem; margin: 0 auto; padding-inline: 1.75rem; }
+
+  /* ---- Typography ---- */
+  .eyebrow {
+    font-family: "Jost", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--champ);
+    margin: 0 0 1rem;
+  }
+  .eyebrow--cream { color: var(--cream-mid); }
+  .eyebrow--champ { color: var(--champ); }
+  .eyebrow--center { text-align: center; }
+
+  .h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    color: var(--esp);
+    margin: 0 0 1rem;
+  }
+  .h2--light { color: var(--cream); }
+
+  /* Hairline rules */
+  .section__rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--champ);
+    margin: 1.25rem 0 1.5rem;
+    opacity: 0.6;
+  }
+  .section__rule--center { margin-inline: auto; margin-bottom: 2rem; }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.75rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+  .btn--lg { padding: 1rem 2.25rem; font-size: 0.9rem; }
+  .btn--full { width: 100%; }
+  .btn--champ {
+    background: var(--champ);
+    color: var(--esp);
+    border-color: var(--champ);
+  }
+  .btn--champ:hover {
+    background: var(--champ-soft);
+    border-color: var(--champ-soft);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(216, 195, 154, 0.2);
+  }
+  .btn--outline {
+    background: transparent;
+    color: var(--cream);
+    border-color: rgba(243, 236, 224, 0.35);
+  }
+  .btn--outline:hover {
+    border-color: var(--champ);
+    color: var(--champ);
+  }
+
+  /* ---- HEADER ---- */
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(36, 28, 22, 0.97);
+    border-bottom: 1px solid var(--rule);
+    backdrop-filter: blur(10px);
+  }
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.75rem;
+    gap: 1rem;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo__icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--champ);
+    display: inline-flex;
+  }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .nav { display: flex; gap: 2rem; }
+  .nav a {
+    font-family: "Jost", sans-serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-mid);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--champ); }
+  .hdr__right { display: flex; align-items: center; gap: 1.25rem; }
+  .hdr__phone {
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .hdr__phone:hover { color: var(--champ); }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    background: var(--esp);
+    color: var(--cream);
+    overflow: hidden;
+    padding: clamp(5rem, 14vw, 10rem) 0;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+  .hero__art {
+    position: absolute;
+    inset: 0;
+    color: var(--champ);
+    opacity: 0.07;
+  }
+  .hero__room { width: 100%; height: 100%; }
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 40%, rgba(36,28,22,0) 0%, rgba(36,28,22,0.85) 100%);
+    pointer-events: none;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+  /* Flanking hairline rules around corner icon */
+  .hero__rule-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .hero__hairline {
+    flex: 1;
+    max-width: 8rem;
+    height: 1px;
+    background: var(--champ);
+    opacity: 0.4;
+  }
+  .hero__corner {
+    width: 2rem;
+    height: 2rem;
+    color: var(--champ);
+    opacity: 0.6;
+  }
+  .hero__title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    font-size: clamp(2.4rem, 6.5vw, 5rem);
+    color: var(--cream);
+    margin: 0 0 1.5rem;
+  }
+  .hero__divider {
+    width: 4rem;
+    height: 1px;
+    background: var(--champ);
+    opacity: 0.5;
+    margin: 0 auto 1.75rem;
+  }
+  .hero__sub {
+    font-family: "Jost", sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: var(--cream-mid);
+    margin: 0 0 2.5rem;
+    max-width: 38rem;
+    margin-inline: auto;
+    margin-bottom: 2.5rem;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+  /* ---- TRUST BAR ---- */
+  .trust {
+    background: var(--esp-mid);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .trust__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2rem;
+    padding: 1.1rem 1.75rem;
+  }
+  .trust__item {
+    font-family: "Jost", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-mid);
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  .trust__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--champ);
+    border-radius: 50%;
+  }
+
+  /* ---- STATS ---- */
+  .stats {
+    background: var(--esp);
+    padding: clamp(3rem, 6vw, 4.5rem) 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  .stat { padding: 1rem; }
+  .stat__num {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    color: var(--champ);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .stat__rule {
+    width: 2rem;
+    height: 1px;
+    background: var(--champ);
+    opacity: 0.35;
+    margin: 0 auto 0.75rem;
+  }
+  .stat__label {
+    font-family: "Jost", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* ---- SECTIONS ---- */
+  .section { padding: clamp(4rem, 9vw, 7rem) 0; }
+  .section--deeper { background: var(--esp-mid); }
+  .section__head {
+    max-width: 44rem;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+  .section__sub {
+    font-family: "Jost", sans-serif;
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    margin: 0;
+  }
+
+  /* ---- ABOUT ---- */
+  .about { background: var(--esp); }
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .about__media { position: relative; }
+  .ph {
+    position: relative;
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--esp-lift);
+    aspect-ratio: 4/5;
+    border: 1px solid var(--rule);
+  }
+  .ph--espresso { color: var(--champ); }
+  .ph__art { width: 72%; height: 72%; opacity: 0.55; }
+  .ph__cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    font-family: "Jost", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--cream-dim);
+    background: linear-gradient(transparent, rgba(36, 28, 22, 0.8));
+  }
+  .about__accent-bar {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 2rem;
+    width: calc(100% - 2rem);
+    height: 3px;
+    background: linear-gradient(90deg, var(--champ), transparent);
+    opacity: 0.4;
+  }
+  .about__body { padding: 0; }
+  .about__lead {
+    font-family: "Jost", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--cream-mid);
+    line-height: 1.8;
+    margin: 0 0 1.75rem;
+  }
+  .tiles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .tile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--rule);
+    padding: 0.9rem 1rem;
+    transition: border-color 0.2s;
+  }
+  .tile:hover { border-color: var(--champ-dim); }
+  .tile__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: none;
+    color: var(--champ);
+  }
+  .tile__icon svg { width: 100%; height: 100%; }
+  .tile__txt {
+    font-family: "Jost", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--cream-mid);
+  }
+
+  /* ---- SERVICES ---- */
+  .svc__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .svc {
+    background: var(--esp);
+    border: 1px solid var(--rule);
+    padding: 2rem 1.75rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .svc:hover {
+    border-color: var(--champ-dim);
+    transform: translateY(-3px);
+  }
+  .svc__top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--champ);
+    transition: width 0.3s ease;
+  }
+  .svc:hover .svc__top-line { width: 100%; }
+  .svc__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--champ);
+    margin-bottom: 1.25rem;
+    opacity: 0.8;
+  }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.01em;
+  }
+  .svc__blurb {
+    font-family: "Jost", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ---- GUARANTEE ---- */
+  .guarantee {
+    background: var(--esp-lift);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+  }
+  .guarantee__inner {
+    display: grid;
+    grid-template-columns: auto 1.4fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .guarantee__deco { flex: none; }
+  .guarantee__crown {
+    width: 4rem;
+    height: 4rem;
+    color: var(--champ);
+    opacity: 0.5;
+  }
+  .guarantee__promise {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.4;
+    margin: 0 0 1rem;
+  }
+  .guarantee__speed {
+    font-family: "Jost", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    margin: 0;
+  }
+  .guarantee__points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .guarantee__points li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: "Jost", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--cream-mid);
+  }
+  .guarantee__points svg { width: 1.25rem; height: 1.25rem; flex: none; color: var(--champ); }
+
+  /* ---- GALLERY ---- */
+  .gallery { background: var(--esp-mid); }
+  .gal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 210px;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .gal__item {
+    position: relative;
+    overflow: hidden;
+    background: var(--esp-lift);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--champ);
+    margin: 0;
+    transition: background 0.2s;
+  }
+  .gal__item:hover { background: var(--esp); }
+  .gal__item--tall { grid-row: span 2; }
+  .gal__art { width: 65%; height: 65%; opacity: 0.4; transition: opacity 0.2s; }
+  .gal__item:hover .gal__art { opacity: 0.6; }
+  .gal__cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(36, 28, 22, 0.9));
+  }
+  .gal__type {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .gal__city {
+    font-family: "Jost", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--champ);
+  }
+
+  /* ---- PROCESS ---- */
+  .process { background: var(--esp); }
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 2.5rem;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .step + .step { border-left: none; }
+  .step__num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--champ);
+    opacity: 0.25;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .step__connector { display: none; }
+  .step__body {}
+  .step__title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin: 0 0 0.5rem;
+  }
+  .step__blurb {
+    font-family: "Jost", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ---- REVIEWS ---- */
+  .reviews { background: var(--esp-mid); }
+  .reviews__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .stars { color: var(--champ); letter-spacing: 0.05em; font-size: 1.1rem; }
+  .rating__val {
+    font-family: "Jost", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--cream-dim);
+  }
+  .rev__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .rev {
+    margin: 0;
+    background: var(--esp);
+    border: 1px solid var(--rule);
+    border-top: 1px solid var(--champ);
+    padding: 2rem;
+    transition: border-color 0.2s;
+  }
+  .rev:hover { border-color: var(--champ-dim); border-top-color: var(--champ-soft); }
+  .rev__stars {
+    color: var(--champ);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .rev__quote {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--cream);
+    margin: 0 0 1.25rem;
+    line-height: 1.6;
+  }
+  .rev__by {
+    font-family: "Jost", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--champ);
+    display: block;
+  }
+
+  /* ---- PARTNERS ---- */
+  .partners {
+    background: var(--esp);
+    border-top: 1px solid var(--rule);
+  }
+  .partners__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .partners__slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9rem;
+    height: 3.75rem;
+    border: 1px dashed var(--rule);
+    font-family: "Jost", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* ---- SERVICE AREAS ---- */
+  .areas { background: var(--esp-mid); }
+  .areas__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .areas__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .areas__city {
+    font-family: "Jost", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--cream-mid);
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .areas__city:hover {
+    border-color: var(--champ-dim);
+    color: var(--champ);
+  }
+
+  /* ---- CONTACT ---- */
+  .contact {
+    background: var(--esp);
+    border-top: 1px solid var(--rule);
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+  .contact__intro { padding-top: 0.5rem; }
+  .contact__sub {
+    font-family: "Jost", sans-serif;
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    margin: 0 0 1.5rem;
+    line-height: 1.8;
+  }
+  .contact__phone {
+    display: inline-block;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--champ);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
+  }
+  .contact__phone:hover { color: var(--champ-soft); }
+  .contact__art { margin-top: 3rem; opacity: 0.2; }
+  .contact__corner { width: 3rem; height: 3rem; color: var(--champ); }
+
+  /* Form */
+  .form {
+    background: var(--esp-lift);
+    border: 1px solid var(--rule);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
+  }
+  .field__label {
+    font-family: "Jost", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--champ);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--esp);
+    border: 1px solid var(--rule);
+    color: var(--cream);
+    font-family: "Jost", sans-serif;
+    font-weight: 300;
+    font-size: 0.92rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    appearance: none;
+    transition: border-color 0.2s;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--cream-dim);
+    font-weight: 300;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--champ);
+    box-shadow: 0 0 0 2px rgba(216, 195, 154, 0.12);
+  }
+  .field select option { background: var(--esp); color: var(--cream); }
+
+  /* ---- FOOTER ---- */
+  .foot {
+    background: #1a120d;
+    color: var(--cream-mid);
+    padding: 4rem 0 0;
+    border-top: 1px solid var(--rule);
+  }
+  .foot__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+  }
+  .foot__brand-name {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cream);
+    display: block;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  .foot__tagline {
+    font-family: "Jost", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .foot__heading {
+    font-family: "Jost", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--champ);
+    margin: 0 0 1rem;
+  }
+  .foot__col a,
+  .foot__col p {
+    display: block;
+    font-family: "Jost", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--cream-dim);
+    text-decoration: none;
+    margin: 0 0 0.5rem;
+    transition: color 0.15s;
+  }
+  .foot__col a:hover { color: var(--champ); }
+  .foot__badge {
+    display: inline-block;
+    border: 1px solid var(--rule);
+    color: var(--cream-dim);
+    font-family: "Jost", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+  }
+  .foot__social { display: flex; gap: 1rem; }
+  .foot__social a {
+    font-family: "Jost", sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .foot__social a:hover { color: var(--champ); }
+  .foot__legal {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-family: "Jost", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--cream-dim);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 960px) {
+    .about__grid,
+    .contact__grid,
+    .areas__inner { grid-template-columns: 1fr; }
+    .guarantee__inner { grid-template-columns: 1fr 1fr; }
+    .guarantee__deco { display: none; }
+    .svc__grid,
+    .rev__grid,
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step + .step { border-left: 1px solid var(--rule); }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .gal__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 680px) {
+    .nav,
+    .hdr__phone { display: none; }
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+    .svc__grid,
+    .rev__grid,
+    .steps,
+    .tiles,
+    .areas__list,
+    .form__row { grid-template-columns: 1fr; }
+    .step + .step { border-top: none; }
+    .foot__inner { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: 1fr; }
+    .gal__item--tall { grid-row: span 1; }
+    .guarantee__inner { grid-template-columns: 1fr; }
+    .about__accent-bar { display: none; }
+  }
+</style>
+
+<script>
+  // Animated count-up for stat numbers when scrolled into view.
+  const els = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+</script>

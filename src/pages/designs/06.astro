@@ -1,0 +1,1027 @@
+---
+/**
+ * DESIGN 06 — Heritage Slate & Burgundy (Old-World Estate)
+ * Palette: slate #46505C (header/dark), ivory #F3EFE6 background, burgundy #7A2230 accent, ink #1E1A17.
+ * Type: Playfair Display (serif display) + Source Sans 3 (body).
+ * Framed/bordered cards, double-rule ornamental dividers, corner flourishes, centered symmetry.
+ * Classic, trustworthy, established. Reads all copy from content.ts only.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MouldingMotifs from "../../components/MouldingMotifs.astro";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer,
+} from "../../data/content";
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
+
+const motifCycle = ["coffered", "wainscot", "room"] as const;
+---
+
+<BaseLayout title="Design 06 - Heritage Slate & Burgundy" current="06" bodyClass="d06">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="wrap hdr__inner">
+      <a href="#home" class="logo" aria-label={meta.brandName + ", back to top"}>
+        <span class="logo__mark" aria-hidden="true">
+          <MouldingMotifs name="crown" class="logo__crown" />
+        </span>
+        <span class="logo__text">{meta.brandName}</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__cta">
+        <a href={meta.phoneHref} class="hdr__phone" aria-label={"Call us at " + meta.phone}>{meta.phone}</a>
+        <a href="#contact" class="btn btn--burg">Get a Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__bg" aria-hidden="true">
+      <MouldingMotifs name="room" class="hero__room" />
+    </div>
+    <!-- ornamental corner flourishes -->
+    <span class="hero__corner hero__corner--tl" aria-hidden="true">
+      <MouldingMotifs name="corner" class="corner-svg" />
+    </span>
+    <span class="hero__corner hero__corner--tr" aria-hidden="true">
+      <MouldingMotifs name="corner" class="corner-svg" />
+    </span>
+    <span class="hero__corner hero__corner--bl" aria-hidden="true">
+      <MouldingMotifs name="corner" class="corner-svg" />
+    </span>
+    <span class="hero__corner hero__corner--br" aria-hidden="true">
+      <MouldingMotifs name="corner" class="corner-svg" />
+    </span>
+    <div class="wrap hero__inner">
+      <p class="eyebrow eyebrow--light">{hero.eyebrow}</p>
+      <h1 class="hero__title" id="hero-heading">{hero.headline}</h1>
+      <div class="hero__rule" aria-hidden="true"></div>
+      <p class="hero__sub">{hero.subhead}</p>
+      <div class="hero__cta">
+        <a href={hero.primaryCta.href} class="btn btn--burg btn--lg">{hero.primaryCta.label}</a>
+        <a href={hero.secondaryCta.href} class="btn btn--ghost btn--lg">{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust" role="complementary" aria-label="Trust signals">
+    <div class="wrap trust__inner">
+      {trustBar.map((t) => <span class="trust__item">{t}</span>)}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Company statistics">
+    <div class="ornament-divider" aria-hidden="true">
+      <span class="div-line"></span>
+      <span class="div-motif"><MouldingMotifs name="corner" class="div-corner" /></span>
+      <span class="div-diamond"></span>
+      <span class="div-motif div-motif--flip"><MouldingMotifs name="corner" class="div-corner" /></span>
+      <span class="div-line"></span>
+    </div>
+    <div class="wrap stats__grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+            <div class="stat__label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="ornament-divider ornament-divider--bot" aria-hidden="true">
+      <span class="div-line"></span>
+      <span class="div-motif"><MouldingMotifs name="corner" class="div-corner" /></span>
+      <span class="div-diamond"></span>
+      <span class="div-motif div-motif--flip"><MouldingMotifs name="corner" class="div-corner" /></span>
+      <span class="div-line"></span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about" aria-labelledby="about-heading">
+    <div class="wrap about__grid">
+      <div class="about__media">
+        <div class="ph ph--slate">
+          <MouldingMotifs name="wainscot" class="ph__art" />
+          <span class="ph__cap">{about.imageCaption}</span>
+        </div>
+      </div>
+      <div class="about__body">
+        <p class="eyebrow">About Us</p>
+        <h2 class="h2" id="about-heading">{about.heading}</h2>
+        <p class="lead">{about.body}</p>
+        <ul class="tiles" role="list">
+          {
+            about.tiles.map((t) => (
+              <li class="tile">
+                <span class="tile__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d={icons[t.icon]} />
+                  </svg>
+                </span>
+                <span class="tile__txt">{t.title}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section section--ivory services" aria-labelledby="services-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{services.heading}</p>
+        <h2 class="h2 h2--center" id="services-heading">Crown Moulding & Finish Carpentry</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+      </div>
+      <div class="svc__grid">
+        {
+          services.items.map((s) => (
+            <article class="svc">
+              <div class="svc__frame" aria-hidden="true"></div>
+              <div class="svc__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d={icons[s.icon]} />
+                </svg>
+              </div>
+              <h3 class="svc__title">{s.title}</h3>
+              <p class="svc__blurb">{s.blurb}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE + DONE IN A DAY -->
+  <section class="guarantee" aria-labelledby="guarantee-heading">
+    <div class="wrap guarantee__inner">
+      <div class="guarantee__main">
+        <p class="eyebrow eyebrow--light">{guarantee.heading}</p>
+        <p class="guarantee__promise" id="guarantee-heading">{guarantee.promise}</p>
+        <p class="guarantee__speed">{guarantee.speed}</p>
+      </div>
+      <ul class="guarantee__points" role="list">
+        {
+          guarantee.points.map((p) => (
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 6" /></svg>
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work" class="section gallery" aria-labelledby="gallery-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{gallery.heading}</p>
+        <h2 class="h2 h2--center" id="gallery-heading">Recent Projects Across the GTA</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+        <p class="section__sub">{gallery.subheading}</p>
+      </div>
+      <div class="gal__grid">
+        {
+          gallery.items.map((g, i) => (
+            <figure class={`gal__item ${i % 5 === 0 ? "gal__item--tall" : ""}`}>
+              <MouldingMotifs name={motifCycle[i % 3]} class="gal__art" />
+              <figcaption class="gal__cap">
+                <span class="gal__type">{g.type}</span>
+                <span class="gal__city">{g.city}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section section--ivory process" aria-labelledby="process-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{process.heading}</p>
+        <h2 class="h2 h2--center" id="process-heading">Simple, Tidy, Done Right</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+      </div>
+      <ol class="steps" role="list">
+        {
+          process.steps.map((p) => (
+            <li class="step">
+              <span class="step__num" aria-label={"Step " + p.number}>{p.number}</span>
+              <h3 class="step__title">{p.title}</h3>
+              <p class="step__blurb">{p.blurb}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews" aria-labelledby="reviews-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{reviews.heading}</p>
+        <div class="reviews__rating" id="reviews-heading">
+          <span class="stars" aria-label="Five stars">★★★★★</span>
+          <span>{reviews.rating.toFixed(1)} average rating</span>
+        </div>
+        <div class="section__rule" aria-hidden="true"></div>
+      </div>
+      <div class="rev__grid">
+        {
+          reviews.items.map((r) => (
+            <blockquote class="rev">
+              <span class="rev__stars" aria-label={r.stars + " stars"}>{"★".repeat(r.stars)}</span>
+              <p class="rev__quote">{r.quote}</p>
+              <footer class="rev__by">{r.name} · {r.city}</footer>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section section--ivory partners" aria-labelledby="partners-heading">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center" id="partners-heading">{partners.heading}</p>
+      <div class="section__rule section__rule--slim" aria-hidden="true"></div>
+      <div class="partners__row" role="list" aria-label="Partner logos">
+        {Array.from({ length: partners.count }).map((_, i) => (
+          <span class="partners__slot" role="listitem" aria-label={"Partner logo " + (i + 1)}>Logo</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section areas" aria-labelledby="areas-heading">
+    <div class="wrap areas__inner">
+      <div class="areas__copy">
+        <p class="eyebrow">{serviceAreas.heading}</p>
+        <h2 class="h2" id="areas-heading">{serviceAreas.intro}</h2>
+      </div>
+      <ul class="areas__list" role="list">
+        {serviceAreas.cities.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" aria-labelledby="contact-heading">
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <p class="eyebrow eyebrow--light">Free Estimate</p>
+        <h2 class="h2 h2--light" id="contact-heading">{contact.heading}</h2>
+        <div class="contact__rule" aria-hidden="true"></div>
+        <p class="contact__sub">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone" aria-label={"Call us: " + meta.phone}>{contact.altContact}</a>
+      </div>
+      <form class="form" onsubmit="return false" aria-label="Free quote request form" novalidate>
+        <div class="form__row">
+          {
+            contact.fields.slice(0, 3).map((f) => (
+              <label class="field">
+                <span>{f.label}{f.required && " *"}</span>
+                <input type={f.type} name={f.name} placeholder={f.label} aria-label={f.label} />
+              </label>
+            ))
+          }
+        </div>
+        <label class="field">
+          <span>Service</span>
+          <select name="service" aria-label="Select a service">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" rows="4" placeholder="Tell us about your project" aria-label="Project description"></textarea>
+        </label>
+        <label class="field field--file">
+          <span>Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" aria-label="Upload a photo of your room" />
+        </label>
+        <button type="submit" class="btn btn--burg btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" role="contentinfo">
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <span class="foot__logo">{meta.brandName}</span>
+        <p>{meta.tagline} in the {meta.serviceRegion}.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4>Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4>More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social">
+          {footer.socials.map((s) => <a href="#" aria-label={s + " profile"}>{s}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="wrap foot__legal">{meta.brandName} &copy; {meta.year}. All rights reserved.</div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     DESIGN 06 — Heritage Slate & Burgundy
+     Namespace: body.d06
+  ============================================================ */
+  :global(body.d06) {
+    --slate: #46505c;
+    --slate-deep: #333b45;
+    --slate-light: #5e6a77;
+    --burg: #7a2230;
+    --burg-soft: #9e3040;
+    --burg-dim: #5c1922;
+    --ivory: #f3efe6;
+    --ivory-warm: #ede8dd;
+    --parchment: #faf7f2;
+    --ink: #1e1a17;
+    --ink-muted: #5a5248;
+    --rule: rgba(70, 80, 92, 0.22);
+    margin: 0;
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.65;
+  }
+  :global(body.d06) * { box-sizing: border-box; }
+
+  .wrap { max-width: 76rem; margin: 0 auto; padding-inline: 1.5rem; }
+
+  /* ---- Typography ---- */
+  .eyebrow {
+    font-family: "Source Sans 3", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--burg);
+    margin: 0 0 0.65rem;
+  }
+  .eyebrow--light { color: rgba(243, 239, 230, 0.75); }
+  .eyebrow--center { text-align: center; }
+
+  .h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+    color: var(--slate);
+    margin: 0 0 0.85rem;
+  }
+  .h2--light { color: var(--ivory); }
+  .h2--center { text-align: center; }
+  .lead { font-size: 1.04rem; color: var(--ink-muted); line-height: 1.7; margin: 0 0 1.25rem; }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: "Source Sans 3", sans-serif; font-weight: 600; font-size: 0.92rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    letter-spacing: 0.06em;
+    transition: all 0.18s ease;
+    text-transform: uppercase;
+  }
+  .btn--lg { padding: 0.9rem 2rem; font-size: 0.95rem; }
+  .btn--full { width: 100%; }
+  .btn--burg {
+    background: var(--burg);
+    color: var(--ivory);
+    border-color: var(--burg);
+  }
+  .btn--burg:hover { background: var(--burg-soft); border-color: var(--burg-soft); transform: translateY(-2px); }
+  .btn--ghost {
+    background: transparent;
+    color: var(--ivory);
+    border-color: rgba(243, 239, 230, 0.55);
+  }
+  .btn--ghost:hover { background: rgba(243,239,230,0.1); border-color: var(--ivory); }
+
+  /* ---- Header ---- */
+  .hdr {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(51, 59, 69, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(122, 34, 48, 0.4);
+  }
+  .hdr__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 4.5rem; gap: 1rem;
+  }
+  .logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .logo__mark { width: 1.9rem; height: 1.9rem; color: var(--burg-soft); display: inline-flex; flex: none; }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__text {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    color: var(--ivory);
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  .nav { display: flex; gap: 1.75rem; }
+  .nav a {
+    color: rgba(243, 239, 230, 0.82);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+  .nav a:hover { color: var(--ivory); border-bottom-color: var(--burg-soft); }
+  .hdr__cta { display: flex; align-items: center; gap: 1.1rem; }
+  .hdr__phone {
+    color: rgba(243,239,230,0.9);
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .hdr__phone:hover { color: var(--ivory); }
+
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    background: var(--slate-deep);
+    color: var(--ivory);
+    overflow: hidden;
+    padding: clamp(5rem, 12vw, 9rem) 0 clamp(4.5rem, 10vw, 8rem);
+    text-align: center;
+  }
+  .hero__bg {
+    position: absolute; inset: 0; opacity: 0.18;
+  }
+  .hero__room { width: 100%; height: 100%; color: var(--ivory); }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(33,41,50,0.88) 0%, rgba(33,41,50,0.78) 50%, rgba(33,41,50,0.92) 100%);
+  }
+  /* ornamental corners */
+  .hero__corner {
+    position: absolute; z-index: 3;
+    width: 5rem; height: 5rem;
+    color: rgba(122, 34, 48, 0.55);
+    pointer-events: none;
+  }
+  .hero__corner--tl { top: 1.5rem; left: 1.5rem; }
+  .hero__corner--tr { top: 1.5rem; right: 1.5rem; transform: scaleX(-1); }
+  .hero__corner--bl { bottom: 1.5rem; left: 1.5rem; transform: scaleY(-1); }
+  .hero__corner--br { bottom: 1.5rem; right: 1.5rem; transform: scale(-1); }
+  .corner-svg { width: 100%; height: 100%; }
+  .hero__inner {
+    position: relative; z-index: 2;
+    max-width: 52rem; margin: 0 auto;
+    text-align: center;
+  }
+  .hero__title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+    margin: 0 0 1.2rem;
+    color: var(--ivory);
+  }
+  .hero__rule {
+    width: 6rem; height: 2px;
+    background: var(--burg-soft);
+    margin: 0 auto 1.4rem;
+    position: relative;
+  }
+  .hero__rule::before, .hero__rule::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 100%; height: 1px;
+    background: rgba(122,34,48,0.35);
+    left: 0;
+  }
+  .hero__sub {
+    font-size: clamp(1rem, 2.1vw, 1.15rem);
+    color: rgba(243, 239, 230, 0.82);
+    margin: 0 auto 2.25rem;
+    max-width: 38rem;
+    line-height: 1.7;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+  /* ---- Trust bar ---- */
+  .trust { background: var(--burg-dim); color: var(--ivory); border-top: 1px solid rgba(122,34,48,0.3); }
+  .trust__inner {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.75rem 2.5rem; padding: 0.95rem 1.5rem;
+  }
+  .trust__item {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    position: relative; padding-left: 1.4rem; color: rgba(243,239,230,0.92);
+  }
+  .trust__item::before {
+    content: "✦"; position: absolute; left: 0; color: rgba(243,239,230,0.55); font-size: 0.65rem; top: 0.15em;
+  }
+
+  /* ---- Ornamental divider ---- */
+  .ornament-divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.6rem; padding: 1.5rem 1.5rem 0;
+  }
+  .ornament-divider--bot { padding: 0 1.5rem 1.5rem; }
+  .div-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rule), transparent);
+  }
+  .div-motif { width: 1.6rem; height: 1.6rem; color: var(--burg); flex: none; }
+  .div-corner { width: 100%; height: 100%; }
+  .div-motif--flip { transform: scaleX(-1); }
+  .div-diamond {
+    width: 0.5rem; height: 0.5rem; background: var(--burg);
+    transform: rotate(45deg); flex: none;
+  }
+
+  /* ---- Stats ---- */
+  .stats { background: var(--parchment); padding: clamp(2rem, 4vw, 3rem) 0; }
+  .stats__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; text-align: center;
+    padding: 1.5rem 0;
+  }
+  .stat {
+    padding: 1.25rem 0.5rem;
+    border-left: 1px solid var(--rule);
+  }
+  .stat:first-child { border-left: none; }
+  .stat__num {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    color: var(--burg);
+    line-height: 1;
+  }
+  .stat__label {
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ---- Section base ---- */
+  .section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+  .section--ivory { background: var(--parchment); }
+  .section__head {
+    max-width: 44rem; margin: 0 auto 2.75rem; text-align: center;
+  }
+  .section__rule {
+    width: 5rem; height: 2px; background: var(--burg);
+    margin: 1rem auto 1.25rem;
+    position: relative;
+  }
+  .section__rule::before {
+    content: ""; position: absolute;
+    top: 4px; left: 0; width: 100%; height: 1px;
+    background: rgba(122,34,48,0.28);
+  }
+  .section__rule--slim { width: 3rem; }
+  .section__sub { color: var(--ink-muted); margin: 0; }
+
+  /* ---- About ---- */
+  .about__grid {
+    display: grid; grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem); align-items: center;
+  }
+  .about__media .ph { aspect-ratio: 4/5; }
+  .tiles {
+    list-style: none; margin: 1.75rem 0 0; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .tile {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--ivory-warm);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--burg);
+    padding: 0.9rem 1rem;
+  }
+  .tile__icon { width: 1.9rem; height: 1.9rem; flex: none; color: var(--burg); }
+  .tile__icon svg { width: 100%; height: 100%; }
+  .tile__txt { font-weight: 600; font-size: 0.88rem; color: var(--slate); line-height: 1.35; }
+
+  /* ---- Placeholder art ---- */
+  .ph {
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(145deg, var(--slate), var(--slate-deep));
+    border: 4px solid var(--ivory-warm);
+    outline: 1px solid var(--rule);
+    outline-offset: -10px;
+  }
+  .ph--slate { color: rgba(122,34,48,0.6); }
+  .ph__art { width: 80%; height: 80%; opacity: 0.55; }
+  .ph__cap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.73rem; color: rgba(243,239,230,0.8);
+    background: linear-gradient(transparent, rgba(0,0,0,0.55));
+    text-align: left; font-style: italic;
+  }
+
+  /* ---- Services ---- */
+  .svc__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .svc {
+    position: relative;
+    background: var(--ivory);
+    border: 1px solid var(--rule);
+    padding: 2rem 1.5rem 1.75rem;
+    transition: all 0.2s ease;
+  }
+  /* double-border frame effect */
+  .svc__frame {
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(70,80,92,0.1);
+    pointer-events: none;
+  }
+  .svc:hover {
+    border-color: var(--burg);
+    box-shadow: 0 8px 28px rgba(70,80,92,0.12);
+    transform: translateY(-3px);
+  }
+  .svc:hover .svc__frame { border-color: rgba(122,34,48,0.18); }
+  .svc__icon { width: 2.75rem; height: 2.75rem; color: var(--burg); margin-bottom: 1rem; }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.15rem; font-weight: 600; color: var(--slate);
+    margin: 0 0 0.5rem;
+  }
+  .svc__blurb { margin: 0; color: var(--ink-muted); font-size: 0.93rem; }
+
+  /* ---- Guarantee ---- */
+  .guarantee {
+    background: var(--slate-deep); color: var(--ivory);
+    padding: clamp(3rem, 6vw, 4.5rem) 0;
+    position: relative;
+  }
+  .guarantee::before {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--burg-dim), var(--burg), var(--burg-dim));
+  }
+  .guarantee__inner {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; align-items: center;
+  }
+  .guarantee__promise {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.25rem, 2.8vw, 1.85rem);
+    font-weight: 600; line-height: 1.3;
+    margin: 0 0 1rem; color: var(--ivory);
+  }
+  .guarantee__speed { color: rgba(243,239,230,0.72); margin: 0; font-size: 0.97rem; }
+  .guarantee__points {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .guarantee__points li {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-weight: 600; font-size: 0.95rem;
+    padding: 0.65rem 1rem;
+    background: rgba(243,239,230,0.07);
+    border-left: 3px solid var(--burg-soft);
+  }
+  .guarantee__points svg { width: 1.35rem; height: 1.35rem; flex: none; color: var(--burg-soft); }
+
+  /* ---- Gallery ---- */
+  .gal__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px; gap: 1rem;
+  }
+  .gal__item {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--slate), var(--slate-deep));
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(122,34,48,0.5);
+    border: 3px solid var(--ivory-warm);
+  }
+  .gal__item::after {
+    content: ""; position: absolute;
+    inset: 6px; border: 1px solid rgba(243,239,230,0.12);
+    pointer-events: none;
+  }
+  .gal__item--tall { grid-row: span 2; }
+  .gal__art { width: 65%; height: 65%; opacity: 0.5; }
+  .gal__cap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.65rem 0.85rem;
+    background: linear-gradient(transparent, rgba(33,41,50,0.82));
+  }
+  .gal__type { color: var(--ivory); font-weight: 600; font-size: 0.83rem; }
+  .gal__city { color: rgba(243,239,230,0.7); font-size: 0.76rem; font-style: italic; }
+
+  /* ---- Process ---- */
+  .steps {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .step {
+    text-align: center; padding: 2rem 1.5rem;
+    background: var(--ivory);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .step::before {
+    content: ""; position: absolute;
+    inset: 5px; border: 1px solid rgba(70,80,92,0.08);
+    pointer-events: none;
+  }
+  .step__num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 3rem; height: 3rem;
+    border: 2px solid var(--burg);
+    color: var(--burg);
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700; font-size: 1.35rem;
+    margin-bottom: 1rem;
+    position: relative; z-index: 1;
+  }
+  .step__title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.1rem; color: var(--slate); margin: 0 0 0.4rem;
+  }
+  .step__blurb { color: var(--ink-muted); margin: 0; font-size: 0.93rem; }
+
+  /* ---- Reviews ---- */
+  .reviews__rating {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.6rem; color: var(--ink-muted); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .stars, .rev__stars { color: var(--burg); letter-spacing: 0.12em; font-size: 1.1em; }
+  .rev__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .rev {
+    margin: 0;
+    background: var(--ivory);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--burg);
+    padding: 1.75rem;
+    position: relative;
+  }
+  .rev::after {
+    content: ""; position: absolute;
+    inset: 6px; border: 1px solid rgba(70,80,92,0.07);
+    pointer-events: none;
+  }
+  .rev__quote {
+    font-size: 0.97rem; color: var(--ink); margin: 0.75rem 0;
+    line-height: 1.65; font-style: italic;
+  }
+  .rev__by { font-weight: 700; color: var(--slate); font-size: 0.88rem; }
+
+  /* ---- Partners ---- */
+  .partners__row {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1.25rem; margin-top: 1.5rem;
+  }
+  .partners__slot {
+    display: flex; align-items: center; justify-content: center;
+    width: 9rem; height: 3.75rem;
+    border: 1px solid var(--rule);
+    background: var(--ivory);
+    color: var(--ink-muted); font-size: 0.83rem;
+    position: relative;
+  }
+  .partners__slot::before {
+    content: ""; position: absolute;
+    inset: 4px; border: 1px solid rgba(70,80,92,0.07);
+  }
+
+  /* ---- Service areas ---- */
+  .areas { background: var(--ivory-warm); }
+  .areas__inner {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center;
+  }
+  .areas__list {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
+  }
+  .areas__list li {
+    padding: 0.65rem 1rem;
+    background: var(--ivory);
+    border: 1px solid var(--rule);
+    font-weight: 600; color: var(--slate); font-size: 0.93rem;
+    border-left: 3px solid var(--burg);
+    transition: border-left-color 0.15s;
+  }
+  .areas__list li:hover { border-left-color: var(--burg-soft); }
+
+  /* ---- Contact ---- */
+  .contact { background: var(--slate); color: var(--ivory); }
+  .contact__grid {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem);
+  }
+  .contact__rule {
+    width: 4rem; height: 2px; background: var(--burg-soft); margin: 0.75rem 0 1.25rem;
+    position: relative;
+  }
+  .contact__rule::before {
+    content: ""; position: absolute;
+    top: 4px; left: 0; width: 100%; height: 1px;
+    background: rgba(122,34,48,0.35);
+  }
+  .contact__sub { color: rgba(243,239,230,0.78); margin: 0 0 1.25rem; }
+  .contact__phone {
+    color: rgba(243,239,230,0.9);
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 600; font-size: 1.1rem; text-decoration: none;
+    border-bottom: 1px solid rgba(243,239,230,0.35);
+    padding-bottom: 2px;
+  }
+  .contact__phone:hover { color: var(--ivory); border-bottom-color: var(--ivory); }
+  .form {
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    position: relative;
+  }
+  .form::before {
+    content: ""; position: absolute;
+    inset: 6px; border: 1px solid rgba(70,80,92,0.08);
+    pointer-events: none;
+  }
+  .form__row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;
+  }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .field span {
+    font-size: 0.78rem; font-weight: 600; color: var(--slate);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .field input, .field select, .field textarea {
+    border: 1px solid rgba(70,80,92,0.25);
+    border-bottom: 2px solid rgba(70,80,92,0.3);
+    border-radius: 0;
+    padding: 0.7rem 0.85rem;
+    font: inherit; color: var(--ink);
+    background: var(--ivory); width: 100%;
+    transition: border-color 0.15s, outline 0.15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: 2px solid var(--burg);
+    outline-offset: 1px;
+    border-color: var(--burg);
+  }
+
+  /* ---- Footer ---- */
+  .foot {
+    background: var(--slate-deep);
+    color: rgba(243,239,230,0.75);
+    padding: 3.5rem 0 0;
+    border-top: 3px solid var(--burg-dim);
+  }
+  .foot__inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem; padding-bottom: 2.5rem;
+  }
+  .foot__brand p { margin: 0.75rem 0 0; font-size: 0.88rem; }
+  .foot__logo {
+    font-family: "Playfair Display", Georgia, serif;
+    color: var(--ivory); font-size: 1.15rem; font-weight: 700;
+  }
+  .foot__col h4 {
+    font-family: "Playfair Display", Georgia, serif;
+    color: var(--ivory); font-size: 0.92rem; margin: 0 0 0.9rem;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+  }
+  .foot__col a, .foot__col p {
+    display: block; color: rgba(243,239,230,0.7);
+    text-decoration: none; font-size: 0.88rem; margin: 0 0 0.5rem;
+  }
+  .foot__col a:hover { color: var(--ivory); }
+  .foot__badge {
+    display: inline-block;
+    border: 1px solid var(--burg-soft);
+    color: rgba(243,239,230,0.8);
+    padding: 0.25rem 0.65rem;
+    font-size: 0.78rem; margin-bottom: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  .foot__social { display: flex; gap: 1rem; }
+  .foot__legal {
+    border-top: 1px solid rgba(243,239,230,0.1);
+    padding-top: 1.5rem; padding-bottom: 1.5rem;
+    font-size: 0.8rem; color: rgba(243,239,230,0.45);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1024px) {
+    .svc__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .about__grid, .guarantee__inner, .areas__inner, .contact__grid { grid-template-columns: 1fr; }
+    .svc__grid, .rev__grid, .steps { grid-template-columns: 1fr 1fr; }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .gal__grid { grid-template-columns: 1fr 1fr; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-left: 1px solid var(--rule); }
+    .stat:nth-child(odd) { border-left: none; }
+    .stat:nth-child(even) { border-left: 1px solid var(--rule); }
+  }
+
+  @media (max-width: 680px) {
+    .nav, .hdr__phone { display: none; }
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+    .svc__grid, .rev__grid, .steps, .tiles, .areas__list, .form__row { grid-template-columns: 1fr; }
+    .foot__inner { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: 1fr; }
+    .gal__item--tall { grid-row: span 1; }
+    .hero__corner { width: 3rem; height: 3rem; }
+    .hero__corner--tl { top: 0.75rem; left: 0.75rem; }
+    .hero__corner--tr { top: 0.75rem; right: 0.75rem; }
+    .hero__corner--bl { bottom: 0.75rem; left: 0.75rem; }
+    .hero__corner--br { bottom: 0.75rem; right: 0.75rem; }
+  }
+</style>
+
+<script>
+  // Animated count-up for stat numbers when they scroll into view.
+  const els = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+</script>

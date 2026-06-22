@@ -1,0 +1,781 @@
+---
+/**
+ * DESIGN 08 — Bold Black & Amber
+ * Palette: near-black #111111 background, white #FFFFFF, amber #F59E0B accent.
+ * Type: Archivo (heavy display) + Inter (body).
+ * Layout signature: high-contrast energetic; oversized uppercase headings,
+ * bold black blocks with amber highlights, hard edges (no border-radius),
+ * big confident buttons, strong full-bleed hero. Contemporary and punchy.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MouldingMotifs from "../../components/MouldingMotifs.astro";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer,
+} from "../../data/content";
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
+---
+
+<BaseLayout title="Design 08 - Bold Black & Amber" current="08" bodyClass="d08">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="wrap hdr__inner">
+      <a href="#home" class="logo" aria-label={meta.brandName}>
+        <span class="logo__mark" aria-hidden="true"><MouldingMotifs name="crown" class="logo__crown" /></span>
+        <span class="logo__text">{meta.brandName}</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__cta">
+        <a href={meta.phoneHref} class="hdr__phone">{meta.phone}</a>
+        <a href="#contact" class="btn btn--amber">Get a Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero__bg" aria-hidden="true">
+      <MouldingMotifs name="room" class="hero__room" />
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <p class="eyebrow eyebrow--amber">{hero.eyebrow}</p>
+      <h1 class="hero__title">{hero.headline}</h1>
+      <p class="hero__sub">{hero.subhead}</p>
+      <div class="hero__cta">
+        <a href={hero.primaryCta.href} class="btn btn--amber btn--lg">{hero.primaryCta.label}</a>
+        <a href={hero.secondaryCta.href} class="btn btn--outline btn--lg">{hero.secondaryCta.label}</a>
+      </div>
+    </div>
+    <div class="hero__ticker" aria-hidden="true">
+      <span>CROWN MOULDING</span>
+      <span class="ticker__dot">&#9632;</span>
+      <span>FINISH CARPENTRY</span>
+      <span class="ticker__dot">&#9632;</span>
+      <span>GTA SPECIALISTS</span>
+      <span class="ticker__dot">&#9632;</span>
+      <span>15+ YEARS</span>
+      <span class="ticker__dot">&#9632;</span>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust">
+    <div class="wrap trust__inner">
+      {trustBar.map((t) => <span class="trust__item">{t}</span>)}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Key statistics">
+    <div class="wrap stats__grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+            <div class="stat__label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="wrap about__grid">
+      <div class="about__media">
+        <div class="ph ph--dark">
+          <MouldingMotifs name="wainscot" class="ph__art" />
+          <span class="ph__cap">{about.imageCaption}</span>
+        </div>
+        <div class="about__accent-block" aria-hidden="true">
+          <span>EST.</span>
+          <span class="about__year">2010</span>
+        </div>
+      </div>
+      <div class="about__body">
+        <p class="eyebrow">About Us</p>
+        <h2 class="h2">{about.heading}</h2>
+        <p class="lead">{about.body}</p>
+        <ul class="tiles" role="list">
+          {
+            about.tiles.map((t) => (
+              <li class="tile">
+                <span class="tile__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d={icons[t.icon]} />
+                  </svg>
+                </span>
+                <span class="tile__txt">{t.title}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section section--black services">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--amber">{services.heading}</p>
+        <h2 class="h2 h2--light">Crown Moulding & Finish Carpentry</h2>
+      </div>
+      <div class="svc__grid">
+        {
+          services.items.map((s) => (
+            <article class="svc">
+              <div class="svc__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={icons[s.icon]} />
+                </svg>
+              </div>
+              <h3 class="svc__title">{s.title}</h3>
+              <p class="svc__blurb">{s.blurb}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE + DONE IN A DAY -->
+  <section class="guarantee" aria-label="Our guarantee">
+    <div class="wrap guarantee__inner">
+      <div class="guarantee__main">
+        <p class="eyebrow">{guarantee.heading}</p>
+        <p class="guarantee__promise">{guarantee.promise}</p>
+        <p class="guarantee__speed">{guarantee.speed}</p>
+      </div>
+      <ul class="guarantee__points" role="list">
+        {
+          guarantee.points.map((p) => (
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 6" /></svg>
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work" class="section section--black gallery" aria-label="Project gallery">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--amber">{gallery.heading}</p>
+        <h2 class="h2 h2--light">Recent Projects Across the GTA</h2>
+        <p class="section__sub section__sub--dim">{gallery.subheading}</p>
+      </div>
+      <div class="gal__grid">
+        {
+          gallery.items.map((g, i) => (
+            <figure class={`gal__item ${i % 5 === 0 ? "gal__item--tall" : ""}`}>
+              <MouldingMotifs name={i % 3 === 0 ? "coffered" : i % 3 === 1 ? "wainscot" : "room"} class="gal__art" />
+              <figcaption class="gal__cap">
+                <span class="gal__type">{g.type}</span>
+                <span class="gal__city">{g.city}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section process" aria-label="Our process">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">{process.heading}</p>
+        <h2 class="h2">Simple, Tidy, Done Right</h2>
+      </div>
+      <ol class="steps" role="list">
+        {
+          process.steps.map((p) => (
+            <li class="step">
+              <span class="step__num" aria-hidden="true">{String(p.number).padStart(2, "0")}</span>
+              <h3 class="step__title">{p.title}</h3>
+              <p class="step__blurb">{p.blurb}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section section--black reviews" aria-label="Customer reviews">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--amber">{reviews.heading}</p>
+        <div class="reviews__rating">
+          <span class="stars" aria-label={`${reviews.rating.toFixed(1)} out of 5 stars`}>★★★★★</span>
+          <span class="reviews__avg">{reviews.rating.toFixed(1)} average rating</span>
+        </div>
+      </div>
+      <div class="rev__grid">
+        {
+          reviews.items.map((r) => (
+            <blockquote class="rev">
+              <span class="rev__stars" aria-label={`${r.stars} stars`}>{"★".repeat(r.stars)}</span>
+              <p class="rev__quote">{r.quote}</p>
+              <footer class="rev__by">{r.name} · {r.city}</footer>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section partners" aria-label="Trusted partners">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center">{partners.heading}</p>
+      <div class="partners__row" role="list">
+        {Array.from({ length: partners.count }).map((_, i) => (
+          <span class="partners__slot" role="listitem" aria-label={`Partner logo ${i + 1}`}>Logo</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section section--black areas" aria-label="Service areas">
+    <div class="wrap areas__inner">
+      <div>
+        <p class="eyebrow eyebrow--amber">{serviceAreas.heading}</p>
+        <h2 class="h2 h2--light">{serviceAreas.intro}</h2>
+      </div>
+      <ul class="areas__list" role="list">
+        {serviceAreas.cities.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" aria-label="Contact form">
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <p class="eyebrow eyebrow--amber">Free Estimate</p>
+        <h2 class="h2 h2--light">{contact.heading}</h2>
+        <p class="contact__sub">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone">{contact.altContact}</a>
+      </div>
+      <form class="form" onsubmit="return false" novalidate aria-label="Request a free quote">
+        <div class="form__row">
+          {
+            contact.fields.slice(0, 3).map((f) => {
+              const acByName = { name: "name", phone: "tel", email: "email" };
+              const acByType = { tel: "tel", email: "email", text: "name" };
+              const ac = acByName[f.name] ?? acByType[f.type] ?? "off";
+              return (
+                <label class="field">
+                  <span class="field__label">{f.label}{f.required && " *"}</span>
+                  <input type={f.type} name={f.name} placeholder={f.label} aria-required={f.required ? "true" : "false"} autocomplete={ac} />
+                </label>
+              );
+            })
+          }
+        </div>
+        <label class="field">
+          <span class="field__label">Service</span>
+          <select name="service" aria-label="Select a service">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Message</span>
+          <textarea name="message" rows={4} placeholder="Tell us about your project"></textarea>
+        </label>
+        <label class="field field--file">
+          <span class="field__label">Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" aria-label="Upload a photo of your room" />
+        </label>
+        <button type="submit" class="btn btn--amber btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <span class="foot__brand-name">{meta.brandName}</span>
+        <p>{meta.tagline} in the {meta.serviceRegion}.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4>Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4>More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social">
+          {footer.socials.map((s) => <a href="#" aria-label={s}>{s}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="wrap foot__legal">{meta.brandName} &copy; {meta.year}. All rights reserved.</div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* ====================================================
+     DESIGN 08 — Bold Black & Amber
+     All rules scoped under body.d08 to avoid bleed.
+  ==================================================== */
+
+  :global(body.d08) {
+    --black: #111111;
+    --black-deep: #0a0a0a;
+    --black-card: #1a1a1a;
+    --black-border: #2a2a2a;
+    --amber: #f59e0b;
+    --amber-dim: #d97706;
+    --amber-bright: #fbbf24;
+    --white: #ffffff;
+    --offwhite: #f5f5f5;
+    --muted: #a3a3a3;
+    --dim: #6b6b6b;
+    margin: 0;
+    background: var(--offwhite);
+    color: var(--black);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  :global(body.d08) * { box-sizing: border-box; }
+
+  .wrap { max-width: 78rem; margin: 0 auto; padding-inline: 1.5rem; }
+
+  /* Typography helpers */
+  .eyebrow {
+    font-family: "Archivo", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #92400e;
+    margin: 0 0 0.75rem;
+  }
+  /* Deep amber (#92400e) for eyebrows on LIGHT/off-white sections (~7.8:1 on #F5F5F5).
+     Bright amber (#F59E0B) only for eyebrows on BLACK/dark sections where it passes. */
+  .eyebrow--amber { color: var(--amber); }
+  .eyebrow--center { text-align: center; }
+
+  .h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    text-transform: uppercase;
+    color: var(--black);
+    margin: 0 0 1rem;
+  }
+  .h2--light { color: var(--white); }
+  .lead { font-size: 1rem; color: var(--dim); line-height: 1.7; }
+
+  /* Buttons — hard edges, bold */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: "Archivo", sans-serif; font-weight: 800; font-size: 0.9rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.8rem 1.5rem; border-radius: 0; text-decoration: none;
+    cursor: pointer; border: 2px solid transparent; transition: background 0.14s, color 0.14s, border-color 0.14s;
+  }
+  .btn--lg { padding: 1rem 2rem; font-size: 0.95rem; }
+  .btn--full { width: 100%; }
+  .btn--amber { background: var(--amber); color: var(--black); border-color: var(--amber); }
+  .btn--amber:hover { background: var(--amber-bright); border-color: var(--amber-bright); }
+  .btn--outline { background: transparent; color: var(--white); border-color: var(--white); }
+  .btn--outline:hover { background: var(--white); color: var(--black); }
+
+  /* ---- HEADER ---- */
+  .hdr {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--black-deep);
+    border-bottom: 2px solid var(--amber);
+  }
+  .hdr__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 4.5rem; gap: 1rem;
+  }
+  .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .logo__mark { width: 2rem; height: 2rem; color: var(--amber); display: inline-flex; }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__text {
+    font-family: "Archivo", sans-serif; font-weight: 900; color: var(--white);
+    letter-spacing: -0.01em; font-size: 1rem; text-transform: uppercase;
+  }
+  .nav { display: flex; gap: 2rem; }
+  .nav a {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--amber); }
+  .hdr__cta { display: flex; align-items: center; gap: 1.25rem; }
+  .hdr__phone {
+    color: var(--amber); font-family: "Archivo", sans-serif; font-weight: 800;
+    font-size: 0.95rem; text-decoration: none; white-space: nowrap;
+  }
+  .hdr__phone:hover { color: var(--amber-bright); }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative; background: var(--black-deep); color: var(--white);
+    overflow: hidden; padding: clamp(5rem, 12vw, 9rem) 0 0;
+  }
+  .hero__bg { position: absolute; inset: 0; opacity: 0.12; }
+  .hero__room { width: 100%; height: 100%; color: var(--amber); }
+  .hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.65) 75%, rgba(10,10,10,0.2));
+  }
+  .hero__inner { position: relative; z-index: 2; max-width: 50rem; padding-bottom: clamp(4rem, 8vw, 6rem); }
+  .hero__title {
+    font-family: "Archivo", sans-serif; font-weight: 900; letter-spacing: -0.04em;
+    line-height: 0.98; font-size: clamp(2.6rem, 7vw, 5rem);
+    text-transform: uppercase; margin: 0 0 1.5rem;
+  }
+  .hero__title span { color: var(--amber); }
+  .hero__sub {
+    font-size: clamp(1rem, 1.8vw, 1.15rem); color: rgba(255,255,255,0.72);
+    margin: 0 0 2.25rem; max-width: 38rem; line-height: 1.65;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* Ticker strip */
+  .hero__ticker {
+    position: relative; z-index: 2;
+    background: var(--amber); color: var(--black);
+    display: flex; align-items: center; gap: 2rem;
+    padding: 0.7rem 1.5rem; overflow: hidden;
+    font-family: "Archivo", sans-serif; font-weight: 800;
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .ticker__dot { color: var(--black); opacity: 0.5; font-size: 0.6rem; }
+
+  /* ---- TRUST BAR ---- */
+  .trust { background: var(--black); color: var(--white); border-bottom: 1px solid var(--black-border); }
+  .trust__inner {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.75rem 2rem; padding: 1rem 1.5rem;
+  }
+  .trust__item {
+    font-size: 0.85rem; font-weight: 600; font-family: "Inter", sans-serif;
+    color: rgba(255,255,255,0.85); padding-left: 1.4rem; position: relative;
+  }
+  .trust__item::before {
+    content: "✓"; position: absolute; left: 0;
+    color: var(--amber); font-weight: 800; font-family: "Archivo", sans-serif;
+  }
+
+  /* ---- STATS ---- */
+  .stats { background: var(--black); padding: clamp(3rem, 6vw, 4.5rem) 0; }
+  .stats__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; text-align: center;
+  }
+  .stat {
+    padding: 2rem 1rem;
+    border-right: 1px solid var(--black-border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat__num {
+    font-family: "Archivo", sans-serif; font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--amber); line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .stat__label {
+    margin-top: 0.6rem; font-size: 0.78rem; color: var(--muted);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* ---- SECTIONS ---- */
+  .section { padding: clamp(4rem, 9vw, 7rem) 0; }
+  .section--black { background: var(--black); }
+  .section__head { max-width: 44rem; margin: 0 auto 3rem; text-align: center; }
+  .section__sub { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  .section__sub--dim { color: var(--muted); }
+
+  /* ---- ABOUT ---- */
+  .about { background: var(--offwhite); }
+  .about__grid {
+    display: grid; grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem); align-items: start;
+  }
+  .about__media { position: relative; }
+  .about__media .ph { aspect-ratio: 4/5; }
+  .about__accent-block {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    background: var(--amber); color: var(--black);
+    padding: 1.5rem 2rem; text-align: center;
+    font-family: "Archivo", sans-serif; font-weight: 900; line-height: 1;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .about__accent-block span:first-child { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; }
+  .about__year { font-size: 2.5rem; letter-spacing: -0.04em; }
+
+  .tiles { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .tile {
+    display: flex; align-items: center; gap: 0.85rem;
+    background: var(--white); border: 2px solid var(--black);
+    padding: 0.9rem 1rem;
+  }
+  .tile__icon { width: 1.75rem; height: 1.75rem; flex: none; color: var(--amber); }
+  .tile__icon svg { width: 100%; height: 100%; }
+  .tile__txt { font-weight: 700; font-size: 0.88rem; color: var(--black); font-family: "Archivo", sans-serif; letter-spacing: -0.01em; }
+
+  /* Placeholders */
+  .ph {
+    position: relative; overflow: hidden; display: flex;
+    align-items: center; justify-content: center;
+    background: var(--black);
+  }
+  .ph--dark { color: rgba(245,158,11,0.35); }
+  .ph__art { width: 80%; height: 80%; }
+  .ph__cap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0.65rem 0.9rem; font-size: 0.75rem;
+    color: rgba(255,255,255,0.75);
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    text-align: left;
+  }
+
+  /* ---- SERVICES ---- */
+  .svc__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .svc {
+    background: var(--black-card); padding: 2rem 1.75rem;
+    border: 1px solid var(--black-border); transition: border-color 0.18s, background 0.18s;
+  }
+  .svc:hover { border-color: var(--amber); background: #1f1f1f; }
+  .svc__icon { width: 2.75rem; height: 2.75rem; color: var(--amber); margin-bottom: 1.25rem; }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title {
+    font-family: "Archivo", sans-serif; font-size: 1.1rem; font-weight: 800;
+    color: var(--white); margin: 0 0 0.6rem; text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .svc__blurb { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.65; }
+
+  /* ---- GUARANTEE ---- */
+  .guarantee { background: var(--amber); color: var(--black); padding: clamp(3rem, 7vw, 5rem) 0; }
+  .guarantee__inner { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: center; }
+  .guarantee .eyebrow { color: rgba(0,0,0,0.72); }
+  .guarantee__promise {
+    font-family: "Archivo", sans-serif; font-size: clamp(1.2rem, 2.8vw, 1.75rem);
+    font-weight: 900; line-height: 1.2; margin: 0 0 1rem; letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .guarantee__speed { color: rgba(0,0,0,0.65); margin: 0; font-weight: 600; font-size: 0.95rem; }
+  .guarantee__points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .guarantee__points li { display: flex; align-items: center; gap: 0.85rem; font-weight: 700; font-size: 1rem; font-family: "Archivo", sans-serif; }
+  .guarantee__points svg { width: 1.4rem; height: 1.4rem; flex: none; color: var(--black); }
+
+  /* ---- GALLERY ---- */
+  .gal__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 210px; gap: 3px;
+  }
+  .gal__item {
+    position: relative; overflow: hidden;
+    background: var(--black-card); display: flex; align-items: center; justify-content: center;
+    color: rgba(245,158,11,0.3);
+    transition: color 0.2s;
+  }
+  .gal__item:hover { color: rgba(245,158,11,0.55); }
+  .gal__item--tall { grid-row: span 2; }
+  .gal__art { width: 70%; height: 70%; }
+  .gal__cap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  }
+  .gal__type { color: var(--white); font-weight: 800; font-size: 0.83rem; font-family: "Archivo", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+  .gal__city { color: var(--amber); font-size: 0.78rem; font-weight: 600; }
+
+  /* ---- PROCESS ---- */
+  .process { background: var(--offwhite); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .step {
+    background: var(--white); border: 2px solid var(--black);
+    padding: 2.5rem 2rem; position: relative; overflow: hidden;
+  }
+  .step__num {
+    display: block; font-family: "Archivo", sans-serif; font-weight: 900;
+    font-size: 5rem; line-height: 1; color: var(--amber); letter-spacing: -0.04em;
+    margin-bottom: 1rem; opacity: 0.18; position: absolute; top: 1rem; right: 1.25rem;
+  }
+  .step__title {
+    font-family: "Archivo", sans-serif; font-size: 1.15rem; font-weight: 900;
+    color: var(--black); margin: 0 0 0.6rem; text-transform: uppercase; letter-spacing: -0.01em;
+    position: relative; z-index: 1;
+  }
+  .step__blurb { color: var(--dim); margin: 0; font-size: 0.93rem; position: relative; z-index: 1; }
+
+  /* ---- REVIEWS ---- */
+  .reviews__rating {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.75rem; margin-top: 0.5rem;
+  }
+  .reviews__avg { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+  .stars, .rev__stars { color: var(--amber); letter-spacing: 0.08em; font-size: 1.1rem; }
+  .rev__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .rev {
+    margin: 0; background: var(--black-card);
+    border: 1px solid var(--black-border); border-top: 4px solid var(--amber);
+    padding: 2rem 1.75rem;
+  }
+  .rev__stars { font-size: 1rem; }
+  .rev__quote { font-size: 0.97rem; color: rgba(255,255,255,0.82); margin: 1rem 0; line-height: 1.7; }
+  .rev__by { font-weight: 800; color: var(--white); font-size: 0.88rem; font-family: "Archivo", sans-serif; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* ---- PARTNERS ---- */
+  .partners { background: var(--offwhite); }
+  .partners__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+  .partners__slot {
+    display: flex; align-items: center; justify-content: center;
+    width: 9rem; height: 4rem; border: 2px solid var(--black);
+    color: var(--dim); font-size: 0.82rem; font-weight: 700;
+    font-family: "Archivo", sans-serif; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* ---- SERVICE AREAS ---- */
+  .areas__inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; }
+  .areas__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .areas__list li {
+    padding: 0.7rem 1rem; background: var(--black-card);
+    color: var(--white); font-weight: 700; font-size: 0.9rem;
+    font-family: "Archivo", sans-serif; text-transform: uppercase; letter-spacing: 0.05em;
+    border-left: 3px solid var(--amber);
+  }
+
+  /* ---- CONTACT ---- */
+  .contact { background: var(--black-deep); color: var(--white); }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2.5rem, 6vw, 5rem); }
+  .contact__sub { color: rgba(255,255,255,0.65); margin: 0 0 1.5rem; line-height: 1.7; }
+  .contact__phone {
+    color: var(--amber); font-family: "Archivo", sans-serif; font-weight: 800;
+    font-size: 1.1rem; text-decoration: none; display: block;
+  }
+  .contact__phone:hover { color: var(--amber-bright); }
+
+  .form { background: var(--white); padding: clamp(1.75rem, 3.5vw, 2.5rem); }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .field__label { font-size: 0.78rem; font-weight: 700; color: var(--black); font-family: "Archivo", sans-serif; text-transform: uppercase; letter-spacing: 0.08em; }
+  .field input, .field select, .field textarea {
+    border: 2px solid var(--black); border-radius: 0; padding: 0.75rem 0.9rem;
+    font: inherit; color: var(--black); background: var(--white); width: 100%;
+    transition: border-color 0.14s, outline 0.14s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: 3px solid var(--amber); outline-offset: 0; border-color: var(--amber);
+  }
+
+  /* ---- FOOTER ---- */
+  .foot { background: var(--black-deep); color: rgba(255,255,255,0.7); padding: 4rem 0 0; border-top: 3px solid var(--amber); }
+  .foot__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem; padding-bottom: 3rem; }
+  .foot__brand-name { font-family: "Archivo", sans-serif; font-weight: 900; color: var(--white); font-size: 1.2rem; text-transform: uppercase; letter-spacing: -0.01em; display: block; margin-bottom: 0.75rem; }
+  .foot__brand p { margin: 0; font-size: 0.88rem; line-height: 1.6; }
+  .foot__col h4 { font-family: "Archivo", sans-serif; color: var(--amber); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 0 0 1rem; font-weight: 800; }
+  .foot__col a, .foot__col p { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; margin: 0 0 0.5rem; }
+  .foot__col a:hover { color: var(--amber); }
+  .foot__badge { display: inline-block; border: 1px solid var(--amber); color: var(--amber); padding: 0.3rem 0.65rem; font-size: 0.75rem; font-family: "Archivo", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+  .foot__social { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .foot__social a { color: rgba(255,255,255,0.55); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+  .foot__social a:hover { color: var(--amber); }
+  .foot__legal { border-top: 1px solid var(--black-border); padding-top: 1.5rem; padding-bottom: 1.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.38); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 1024px) {
+    .svc__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .about__grid,
+    .guarantee__inner,
+    .areas__inner,
+    .contact__grid { grid-template-columns: 1fr; }
+    .about__accent-block { bottom: -1rem; right: -0.5rem; }
+    .rev__grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .gal__grid { grid-template-columns: 1fr 1fr; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: none; border-bottom: 1px solid var(--black-border); }
+    .stat:nth-child(odd) { border-right: 1px solid var(--black-border); }
+  }
+  @media (max-width: 680px) {
+    .nav, .hdr__phone { display: none; }
+    .svc__grid,
+    .rev__grid,
+    .steps,
+    .tiles,
+    .areas__list,
+    .form__row { grid-template-columns: 1fr; }
+    .foot__inner { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: 1fr; }
+    .gal__item--tall { grid-row: span 1; }
+    .stat { border-right: none; }
+    .stat:nth-child(odd) { border-right: none; }
+    .hero__ticker { gap: 1.25rem; font-size: 0.72rem; }
+    .about__accent-block { position: static; display: inline-flex; margin-top: 1rem; }
+  }
+</style>
+
+<script>
+  // Animated count-up for the stat numbers when they scroll into view.
+  const els = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+</script>

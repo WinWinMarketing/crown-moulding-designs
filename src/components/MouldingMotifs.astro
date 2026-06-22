@@ -1,0 +1,118 @@
+---
+/**
+ * Reusable, on-theme SVG art so designs look intentional without real photos.
+ * All shapes use `currentColor`, so a design tints them by setting CSS `color`
+ * (or a Tailwind text-* class) on this component or a parent.
+ *
+ * Usage:
+ *   <MouldingMotifs name="room"     class="text-amber-400 w-full h-full" />
+ *   <MouldingMotifs name="crown"    class="text-white/30 w-24 h-24" />
+ *   <MouldingMotifs name="coffered" class="text-current opacity-20" />
+ *   <MouldingMotifs name="wainscot" />
+ *   <MouldingMotifs name="corner"   />
+ *
+ * names: "room" | "crown" | "coffered" | "wainscot" | "corner" | "door"
+ */
+interface Props {
+  name?: "room" | "crown" | "coffered" | "wainscot" | "corner" | "door";
+  class?: string;
+}
+const { name = "room", class: className = "" } = Astro.props;
+---
+
+{
+  name === "room" && (
+    <svg viewBox="0 0 400 300" fill="none" class={className} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      {/* line-art room with crown moulding at the ceiling */}
+      <rect x="0.5" y="0.5" width="399" height="299" stroke="currentColor" stroke-width="1" opacity="0.25" />
+      {/* ceiling crown line */}
+      <path d="M20 46 H380 M20 40 H380 M20 52 Q200 60 380 52" stroke="currentColor" stroke-width="1.5" opacity="0.7" />
+      {/* coffered ceiling hint */}
+      <path d="M70 12 V46 M150 12 V46 M230 12 V46 M310 12 V46 M20 24 H380" stroke="currentColor" stroke-width="1" opacity="0.35" />
+      {/* window with casing */}
+      <rect x="56" y="96" width="120" height="120" stroke="currentColor" stroke-width="1.5" opacity="0.6" />
+      <rect x="46" y="86" width="140" height="140" stroke="currentColor" stroke-width="1" opacity="0.4" />
+      <path d="M116 96 V216 M56 156 H176" stroke="currentColor" stroke-width="1" opacity="0.5" />
+      {/* wainscoting panels on right wall */}
+      <rect x="232" y="150" width="60" height="70" stroke="currentColor" stroke-width="1.2" opacity="0.55" />
+      <rect x="304" y="150" width="60" height="70" stroke="currentColor" stroke-width="1.2" opacity="0.55" />
+      <path d="M214 142 H380 M214 226 H380" stroke="currentColor" stroke-width="1" opacity="0.4" />
+      {/* baseboard */}
+      <path d="M0 276 H400 M0 270 H400" stroke="currentColor" stroke-width="1.5" opacity="0.6" />
+    </svg>
+  )
+}
+
+{
+  name === "crown" && (
+    <svg viewBox="0 0 120 120" fill="none" class={className} aria-hidden="true">
+      {/* crown moulding cross-section profile */}
+      <path
+        d="M14 100 V70 C14 60 24 58 28 50 C34 38 30 28 40 22 C50 16 58 24 66 18 C76 11 86 16 92 26 C98 36 92 46 100 54 C106 60 106 64 106 70 V100"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      />
+      <path d="M14 100 H106" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      <path d="M22 92 H98 M26 80 H94" stroke="currentColor" stroke-width="1" opacity="0.4" />
+    </svg>
+  )
+}
+
+{
+  name === "coffered" && (
+    <svg viewBox="0 0 200 200" fill="none" class={className} aria-hidden="true">
+      {/* coffered / waffle ceiling grid */}
+      {[0, 1, 2, 3].map((r) =>
+        [0, 1, 2, 3].map((c) => (
+          <g>
+            <rect x={8 + c * 47} y={8 + r * 47} width="38" height="38" rx="2" stroke="currentColor" stroke-width="1.5" opacity="0.7" />
+            <rect x={14 + c * 47} y={14 + r * 47} width="26" height="26" rx="1" stroke="currentColor" stroke-width="1" opacity="0.4" />
+          </g>
+        ))
+      )}
+    </svg>
+  )
+}
+
+{
+  name === "wainscot" && (
+    <svg viewBox="0 0 320 120" fill="none" class={className} aria-hidden="true">
+      {/* wainscoting panel run */}
+      <path d="M2 10 H318 M2 110 H318" stroke="currentColor" stroke-width="1.5" opacity="0.6" />
+      {[0, 1, 2, 3].map((i) => (
+        <g>
+          <rect x={14 + i * 78} y="24" width="58" height="72" rx="3" stroke="currentColor" stroke-width="1.5" opacity="0.7" />
+          <rect x={22 + i * 78} y="32" width="42" height="56" rx="2" stroke="currentColor" stroke-width="1" opacity="0.4" />
+        </g>
+      ))}
+    </svg>
+  )
+}
+
+{
+  name === "corner" && (
+    <svg viewBox="0 0 100 100" fill="none" class={className} aria-hidden="true">
+      {/* decorative corner flourish */}
+      <path d="M4 4 H44 M4 4 V44" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <path d="M12 12 C30 12 30 30 12 30 M12 12 C12 30 30 30 30 12" stroke="currentColor" stroke-width="1.25" opacity="0.6" fill="none" />
+      <circle cx="21" cy="21" r="2.5" fill="currentColor" opacity="0.7" />
+    </svg>
+  )
+}
+
+{
+  name === "door" && (
+    <svg viewBox="0 0 120 200" fill="none" class={className} aria-hidden="true">
+      {/* panelled interior door with casing */}
+      <rect x="8" y="6" width="104" height="188" stroke="currentColor" stroke-width="1" opacity="0.35" />
+      <rect x="20" y="16" width="80" height="172" stroke="currentColor" stroke-width="1.8" opacity="0.7" />
+      <rect x="30" y="28" width="60" height="50" rx="2" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+      <rect x="30" y="86" width="60" height="50" rx="2" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+      <rect x="30" y="144" width="60" height="34" rx="2" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+      <circle cx="82" cy="106" r="3" fill="currentColor" opacity="0.7" />
+    </svg>
+  )
+}

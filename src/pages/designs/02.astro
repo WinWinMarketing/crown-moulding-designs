@@ -1,0 +1,1337 @@
+---
+/**
+ * DESIGN 02: Artisan Cream & Bronze
+ * Palette: cream #F7F3EC bg, ink #1C1A17 text, bronze #B08243 accent, soft line #E3DACB
+ * Type: Cormorant Garamond (serif display) + Inter (body)
+ * Layout: Editorial / magazine, asymmetric hero (text-left, motif-right),
+ *   large serif headlines, generous whitespace, thin hairline rules as dividers,
+ *   restrained cards with hairline borders. Warm, handcrafted, premium.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MouldingMotifs from "../../components/MouldingMotifs.astro";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer,
+} from "../../data/content";
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
+---
+
+<BaseLayout title="Design 02 - Artisan Cream & Bronze" current="02" bodyClass="d02">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="wrap hdr__inner">
+      <a href="#home" class="logo" aria-label={meta.brandName + " home"}>
+        <span class="logo__mark" aria-hidden="true">
+          <MouldingMotifs name="crown" class="logo__crown" />
+        </span>
+        <span class="logo__text">{meta.brandName}</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__cta">
+        <a href={meta.phoneHref} class="hdr__phone">{meta.phone}</a>
+        <a href="#contact" class="btn btn--bronze">Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO: asymmetric, text-left, motif-right -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="wrap hero__inner">
+      <div class="hero__content">
+        <p class="eyebrow">{hero.eyebrow}</p>
+        <h1 id="hero-heading" class="hero__title">{hero.headline}</h1>
+        <div class="hero__rule" aria-hidden="true"></div>
+        <p class="hero__sub">{hero.subhead}</p>
+        <div class="hero__cta">
+          <a href={hero.primaryCta.href} class="btn btn--bronze btn--lg">{hero.primaryCta.label}</a>
+          <a href={hero.secondaryCta.href} class="btn btn--outline btn--lg">{hero.secondaryCta.label}</a>
+        </div>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__frame">
+          <MouldingMotifs name="room" class="hero__room" />
+          <span class="hero__caption">{hero.imageCaption}</span>
+        </div>
+        <div class="hero__corner hero__corner--tl">
+          <MouldingMotifs name="corner" class="hero__corner-art" />
+        </div>
+        <div class="hero__corner hero__corner--br">
+          <MouldingMotifs name="corner" class="hero__corner-art" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust" role="list" aria-label="Trust indicators">
+    <div class="wrap trust__inner">
+      {trustBar.map((t) => (
+        <span class="trust__item" role="listitem">{t}</span>
+      ))}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Company statistics">
+    <div class="wrap stats__inner">
+      <div class="stats__rule" aria-hidden="true"></div>
+      <div class="stats__grid">
+        {stats.map((s) => (
+          <div class="stat">
+            <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+            <div class="stat__label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div class="stats__rule" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about" aria-labelledby="about-heading">
+    <div class="wrap about__grid">
+      <div class="about__media">
+        <div class="ph">
+          <MouldingMotifs name="wainscot" class="ph__art" />
+          <span class="ph__cap">{about.imageCaption}</span>
+        </div>
+        <div class="about__ornament" aria-hidden="true">
+          <MouldingMotifs name="corner" class="about__corner" />
+        </div>
+      </div>
+      <div class="about__body">
+        <p class="eyebrow">About Us</p>
+        <h2 id="about-heading" class="h2">{about.heading}</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+        <p class="lead">{about.body}</p>
+        <ul class="tiles" aria-label="Key qualities">
+          {about.tiles.map((t) => (
+            <li class="tile">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={icons[t.icon]} />
+                </svg>
+              </span>
+              <span class="tile__txt">{t.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section section--tinted services" aria-labelledby="services-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{services.heading}</p>
+        <h2 id="services-heading" class="h2 h2--center">Crown Moulding &amp; Finish Carpentry</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      </div>
+      <div class="svc__grid">
+        {services.items.map((s) => (
+          <article class="svc">
+            <div class="svc__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d={icons[s.icon]} />
+              </svg>
+            </div>
+            <h3 class="svc__title">{s.title}</h3>
+            <div class="svc__rule" aria-hidden="true"></div>
+            <p class="svc__blurb">{s.blurb}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE + DONE IN A DAY -->
+  <section class="guarantee" aria-labelledby="guarantee-heading">
+    <div class="wrap guarantee__inner">
+      <div class="guarantee__main">
+        <p class="eyebrow eyebrow--bronze">{guarantee.heading}</p>
+        <h2 id="guarantee-heading" class="guarantee__promise">{guarantee.promise}</h2>
+        <div class="guarantee__rule" aria-hidden="true"></div>
+        <p class="guarantee__speed">{guarantee.speed}</p>
+      </div>
+      <ul class="guarantee__points" aria-label="Guarantee points">
+        {guarantee.points.map((p) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12l5 5L20 6" />
+            </svg>
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work" class="section gallery" aria-labelledby="gallery-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{gallery.heading}</p>
+        <h2 id="gallery-heading" class="h2 h2--center">Recent Projects Across the GTA</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+        <p class="section__sub">{gallery.subheading}</p>
+      </div>
+      <div class="gal__grid">
+        {gallery.items.map((g, i) => (
+          <figure class={`gal__item ${i % 5 === 0 ? "gal__item--tall" : ""}`}>
+            <div class="gal__art-wrap" aria-hidden="true">
+              <MouldingMotifs
+                name={i % 3 === 0 ? "coffered" : i % 3 === 1 ? "wainscot" : "room"}
+                class="gal__art"
+              />
+            </div>
+            <figcaption class="gal__cap">
+              <span class="gal__type">{g.type}</span>
+              <span class="gal__city">{g.city}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section section--tinted process" aria-labelledby="process-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{process.heading}</p>
+        <h2 id="process-heading" class="h2 h2--center">Simple, Tidy, Done Right</h2>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      </div>
+      <ol class="steps" aria-label="How it works steps">
+        {process.steps.map((p) => (
+          <li class="step">
+            <span class="step__num" aria-hidden="true">{p.number}</span>
+            <h3 class="step__title">{p.title}</h3>
+            <p class="step__blurb">{p.blurb}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews" aria-labelledby="reviews-heading">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow eyebrow--center">{reviews.heading}</p>
+        <div class="reviews__rating" aria-label={reviews.rating.toFixed(1) + " star average rating"}>
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span>{reviews.rating.toFixed(1)} average rating</span>
+        </div>
+        <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      </div>
+      <div class="rev__grid">
+        {reviews.items.map((r) => (
+          <blockquote class="rev">
+            <span class="rev__stars" aria-label={r.stars + " stars"}>{"★".repeat(r.stars)}</span>
+            <p class="rev__quote">{r.quote}</p>
+            <footer class="rev__by">{r.name} &middot; {r.city}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section section--tinted partners" aria-labelledby="partners-heading">
+    <div class="wrap">
+      <p id="partners-heading" class="eyebrow eyebrow--center">{partners.heading}</p>
+      <div class="section__rule section__rule--center" aria-hidden="true"></div>
+      <div class="partners__row" role="list" aria-label="Partner logos">
+        {Array.from({ length: partners.count }).map((_, i) => (
+          <span class="partners__slot" role="listitem" aria-label={"Partner logo " + (i + 1)}>Logo</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section areas" aria-labelledby="areas-heading">
+    <div class="wrap areas__inner">
+      <div class="areas__intro">
+        <p class="eyebrow">{serviceAreas.heading}</p>
+        <h2 id="areas-heading" class="h2">{serviceAreas.intro}</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+      </div>
+      <ul class="areas__list" aria-label="Cities served">
+        {serviceAreas.cities.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" aria-labelledby="contact-heading">
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <p class="eyebrow eyebrow--bronze">Free Estimate</p>
+        <h2 id="contact-heading" class="h2">{contact.heading}</h2>
+        <div class="section__rule" aria-hidden="true"></div>
+        <p class="contact__sub">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone" aria-label={"Call us at " + meta.phone}>{contact.altContact}</a>
+      </div>
+      <form class="form" onsubmit="return false" aria-label="Free estimate request form" novalidate>
+        <div class="form__row">
+          {contact.fields.slice(0, 3).map((f) => (
+            <label class="field">
+              <span class="field__label">{f.label}{f.required && " *"}</span>
+              <input
+                type={f.type}
+                name={f.name}
+                placeholder={f.label}
+                aria-label={f.label}
+                autocomplete={f.name === "name" ? "name" : f.name === "phone" ? "tel" : "email"}
+              />
+            </label>
+          ))}
+        </div>
+        <label class="field">
+          <span class="field__label">Service</span>
+          <select name="service" autocomplete="off" aria-label="Select a service">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Message</span>
+          <textarea name="message" rows={4} placeholder="Tell us about your project" aria-label="Project details"></textarea>
+        </label>
+        <label class="field field--file">
+          <span class="field__label">Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" aria-label="Upload a photo of your room" />
+        </label>
+        <button type="submit" class="btn btn--bronze btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" role="contentinfo">
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <span class="foot__brand-name">{meta.brandName}</span>
+        <p>{meta.tagline} in the {meta.serviceRegion}.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4>Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4>More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social" aria-label="Social media links">
+          {footer.socials.map((s) => <a href="#" aria-label={s + " page"}>{s}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="wrap foot__legal">
+      <span>{meta.brandName} &copy; {meta.year}. All rights reserved.</span>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* =====================================================================
+     DESIGN 02: Artisan Cream & Bronze, palette + base
+     ===================================================================== */
+  :global(body.d02) {
+    --cream: #f7f3ec;
+    --cream-deep: #ede7db;
+    --ink: #1c1a17;
+    --ink-muted: #6b6355;
+    --bronze: #b08243;
+    --bronze-light: #c9a264;
+    --bronze-dim: #8a6432;
+    --line: #e3dacb;
+    --white: #ffffff;
+    --tinted: #f1ebe0;
+
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.65;
+  }
+  :global(body.d02) * { box-sizing: border-box; }
+
+  /* =====================================================================
+     Layout utilities
+     ===================================================================== */
+  .wrap { max-width: 78rem; margin: 0 auto; padding-inline: 2rem; }
+
+  /* =====================================================================
+     Typography
+     ===================================================================== */
+  .eyebrow {
+    font-family: "Inter", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #7d5a28;
+    margin: 0 0 1rem;
+  }
+  .eyebrow--center { text-align: center; }
+  /* eyebrow--bronze is used on the dark #ink guarantee section — keep bright variant */
+  .eyebrow--bronze { color: var(--bronze-light); }
+
+  .h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    color: var(--ink);
+    margin: 0 0 1.25rem;
+  }
+  .h2--center { text-align: center; }
+
+  .lead {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Hairline rules: the editorial signature */
+  .section__rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--bronze);
+    margin: 0 0 1.5rem;
+    opacity: 0.6;
+  }
+  .section__rule--center { margin-inline: auto; margin-bottom: 1.75rem; }
+
+  /* =====================================================================
+     Buttons
+     ===================================================================== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.6rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    border-radius: 0;
+  }
+  .btn--lg { padding: 1rem 2rem; font-size: 0.88rem; }
+  .btn--full { width: 100%; }
+  .btn--bronze {
+    background: var(--bronze);
+    color: var(--white);
+    border-color: var(--bronze);
+  }
+  .btn--bronze:hover {
+    background: var(--bronze-dim);
+    border-color: var(--bronze-dim);
+    transform: translateY(-1px);
+  }
+  .btn--outline {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .btn--outline:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* =====================================================================
+     Header
+     ===================================================================== */
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 243, 236, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    gap: 1.5rem;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo__mark {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--bronze);
+    display: inline-flex;
+  }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__text {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .nav {
+    display: flex;
+    gap: 2.25rem;
+  }
+  .nav a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .nav a:hover { color: var(--bronze); }
+  .hdr__cta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
+  }
+  .hdr__phone {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .hdr__phone:hover { color: var(--bronze); }
+
+  /* =====================================================================
+     Hero: asymmetric split, text left, framed motif right
+     ===================================================================== */
+  .hero {
+    background: var(--cream);
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    overflow: hidden;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .hero__content { padding-right: 2rem; }
+  .hero__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.07;
+    font-size: clamp(2.4rem, 5.5vw, 4.25rem);
+    color: var(--ink);
+    margin: 0 0 1.5rem;
+  }
+  .hero__rule {
+    width: 4rem;
+    height: 1px;
+    background: var(--bronze);
+    margin: 0 0 1.75rem;
+  }
+  .hero__sub {
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    color: var(--ink-muted);
+    line-height: 1.75;
+    margin: 0 0 2.25rem;
+    max-width: 34rem;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* Framed visual placeholder */
+  .hero__visual {
+    position: relative;
+  }
+  .hero__frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--tinted);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bronze);
+    overflow: hidden;
+  }
+  .hero__room { width: 90%; height: 90%; opacity: 0.55; }
+  .hero__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    background: rgba(247, 243, 236, 0.92);
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.03em;
+  }
+  .hero__corner {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--bronze);
+    opacity: 0.5;
+  }
+  .hero__corner--tl { top: -0.75rem; left: -0.75rem; }
+  .hero__corner--br {
+    bottom: -0.75rem;
+    right: -0.75rem;
+    transform: rotate(180deg);
+  }
+  .hero__corner-art { width: 100%; height: 100%; }
+
+  /* =====================================================================
+     Trust bar
+     ===================================================================== */
+  .trust {
+    background: var(--ink);
+    color: var(--cream);
+    border-top: 1px solid rgba(176, 130, 67, 0.3);
+    border-bottom: 1px solid rgba(176, 130, 67, 0.3);
+  }
+  .trust__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 2rem;
+    padding: 1rem 2rem;
+  }
+  .trust__item {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    position: relative;
+    color: rgba(247, 243, 236, 0.88);
+  }
+  .trust__item::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--bronze);
+    vertical-align: middle;
+    margin-right: 0.6rem;
+    margin-bottom: 1px;
+  }
+
+  /* =====================================================================
+     Stats
+     ===================================================================== */
+  .stats {
+    background: var(--cream);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+  .stats__inner { text-align: center; }
+  .stats__rule {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 3rem;
+  }
+  .stats__rule:last-child { margin-bottom: 0; margin-top: 3rem; }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  .stat {
+    padding: 1rem;
+  }
+  .stat__num {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat__label {
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* =====================================================================
+     Sections
+     ===================================================================== */
+  .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+  .section--tinted { background: var(--tinted); }
+  .section__head {
+    max-width: 44rem;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+  }
+  .section__sub {
+    color: var(--ink-muted);
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  /* =====================================================================
+     About
+     ===================================================================== */
+  .about__grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .about__media { position: relative; }
+  .ph {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--tinted);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bronze);
+    overflow: hidden;
+  }
+  .ph__art { width: 85%; height: 85%; opacity: 0.5; }
+  .ph__cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.7rem 1rem;
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    background: rgba(247, 243, 236, 0.9);
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.03em;
+  }
+  .about__ornament {
+    position: absolute;
+    bottom: -1.25rem;
+    right: -1.25rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    color: var(--bronze);
+    opacity: 0.35;
+    transform: rotate(180deg);
+  }
+  .about__corner { width: 100%; height: 100%; }
+  .tiles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+  .tile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    transition: border-color 0.18s;
+  }
+  .tile:hover { border-color: var(--bronze); }
+  .tile__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: none;
+    color: var(--bronze);
+  }
+  .tile__icon svg { width: 100%; height: 100%; }
+  .tile__txt {
+    font-size: 0.87rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  /* =====================================================================
+     Services
+     ===================================================================== */
+  .svc__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .svc {
+    background: var(--tinted);
+    padding: 2.25rem 2rem;
+    transition: background 0.2s;
+  }
+  .svc:hover { background: var(--cream); }
+  .svc__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--bronze);
+    margin-bottom: 1.25rem;
+  }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+  .svc__rule {
+    width: 2rem;
+    height: 1px;
+    background: var(--bronze);
+    margin: 0 0 1rem;
+    opacity: 0.5;
+  }
+  .svc__blurb {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* =====================================================================
+     Guarantee
+     ===================================================================== */
+  .guarantee {
+    background: var(--ink);
+    color: var(--cream);
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+  }
+  .guarantee__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .guarantee__promise {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 1.25rem;
+    color: var(--cream);
+  }
+  .guarantee__rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--bronze);
+    margin: 0 0 1.25rem;
+    opacity: 0.7;
+  }
+  .guarantee__speed {
+    color: rgba(247, 243, 236, 0.72);
+    margin: 0;
+    font-size: 0.97rem;
+    line-height: 1.7;
+  }
+  .guarantee__points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .guarantee__points li {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-weight: 500;
+    font-size: 0.97rem;
+    color: rgba(247, 243, 236, 0.9);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(227, 218, 203, 0.12);
+  }
+  .guarantee__points li:last-child { border-bottom: none; padding-bottom: 0; }
+  .guarantee__points svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+    color: var(--bronze-light);
+  }
+
+  /* =====================================================================
+     Gallery
+     ===================================================================== */
+  .gal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 210px;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .gal__item {
+    position: relative;
+    background: var(--tinted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bronze);
+    overflow: hidden;
+    margin: 0;
+    transition: background 0.2s;
+  }
+  .gal__item:hover { background: var(--cream-deep); }
+  .gal__item--tall { grid-row: span 2; }
+  .gal__art-wrap { width: 70%; height: 70%; }
+  .gal__art { width: 100%; height: 100%; opacity: 0.45; }
+  .gal__cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    background: rgba(247, 243, 236, 0.93);
+    border-top: 1px solid var(--line);
+  }
+  .gal__type {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .gal__city {
+    color: #7d5a28;
+    font-style: italic;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 0.9rem;
+  }
+
+  /* =====================================================================
+     Process
+     ===================================================================== */
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    counter-reset: step;
+  }
+  .step {
+    padding: 2.75rem 2.25rem;
+    background: var(--tinted);
+    text-align: left;
+  }
+  .step__num {
+    display: block;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--bronze);
+    opacity: 0.35;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.04em;
+  }
+  .step__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 0.75rem;
+  }
+  .step__blurb {
+    color: var(--ink-muted);
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+
+  /* =====================================================================
+     Reviews
+     ===================================================================== */
+  .reviews__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  .stars, .rev__stars { color: #7d5a28; letter-spacing: 0.08em; }
+  .rev__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .rev {
+    margin: 0;
+    background: var(--tinted);
+    border: 1px solid var(--line);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .rev:hover { border-color: var(--bronze); }
+  .rev::before {
+    content: "\201C";
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--bronze);
+    opacity: 0.18;
+    position: absolute;
+    top: 0.75rem;
+    left: 1.25rem;
+  }
+  .rev__stars { display: block; margin-bottom: 0.75rem; font-size: 0.95rem; }
+  .rev__quote {
+    font-size: 0.97rem;
+    color: var(--ink);
+    margin: 0 0 1.25rem;
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+  }
+  .rev__by {
+    font-weight: 600;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  /* =====================================================================
+     Partners
+     ===================================================================== */
+  .partners__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px;
+    margin-top: 2rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .partners__slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 4rem;
+    background: var(--tinted);
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex: 1;
+    min-width: 8rem;
+  }
+
+  /* =====================================================================
+     Service areas
+     ===================================================================== */
+  .areas__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .areas__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    align-self: start;
+  }
+  .areas__list li {
+    padding: 0.85rem 1.1rem;
+    background: var(--tinted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ink);
+    transition: background 0.18s;
+  }
+  .areas__list li:hover { background: var(--cream); }
+
+  /* =====================================================================
+     Contact
+     ===================================================================== */
+  .contact { background: var(--cream); }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .contact__intro { padding-top: 1rem; }
+  .contact__sub {
+    color: var(--ink-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.97rem;
+    line-height: 1.7;
+  }
+  .contact__phone {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--bronze);
+    padding-bottom: 0.1rem;
+    transition: color 0.15s;
+  }
+  .contact__phone:hover { color: var(--bronze); }
+  .form {
+    background: var(--tinted);
+    border: 1px solid var(--line);
+    padding: clamp(1.75rem, 3vw, 2.75rem);
+  }
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
+  }
+  .field__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    border: 1px solid var(--line);
+    border-radius: 0;
+    padding: 0.75rem 0.9rem;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--white);
+    width: 100%;
+    transition: border-color 0.15s;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--bronze);
+    box-shadow: 0 0 0 2px rgba(176, 130, 67, 0.15);
+  }
+  .field--file input {
+    padding: 0.6rem 0.9rem;
+    background: var(--cream);
+    cursor: pointer;
+    font-size: 0.88rem;
+  }
+
+  /* =====================================================================
+     Footer
+     ===================================================================== */
+  .foot {
+    background: var(--ink);
+    color: rgba(247, 243, 236, 0.78);
+    padding: 4rem 0 0;
+    border-top: 3px solid var(--bronze);
+  }
+  .foot__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(227, 218, 203, 0.12);
+  }
+  .foot__brand-name {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--cream);
+    display: block;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+  .foot__brand p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+  .foot__col h4 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: var(--cream);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    letter-spacing: 0.03em;
+  }
+  .foot__col a,
+  .foot__col p {
+    display: block;
+    color: rgba(247, 243, 236, 0.7);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin: 0 0 0.5rem;
+    transition: color 0.15s;
+  }
+  .foot__col a:hover { color: var(--bronze-light); }
+  .foot__badge {
+    display: inline-block;
+    border: 1px solid rgba(176, 130, 67, 0.4);
+    color: var(--bronze-light);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .foot__social {
+    display: flex;
+    gap: 1.25rem;
+  }
+  .foot__social a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .foot__legal {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 0.8rem;
+    color: rgba(247, 243, 236, 0.4);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* =====================================================================
+     Responsive: 900px
+     ===================================================================== */
+  @media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__content { padding-right: 0; }
+    .hero__visual { max-width: 28rem; }
+    .about__grid { grid-template-columns: 1fr; }
+    .about__media { max-width: 28rem; }
+    .guarantee__inner { grid-template-columns: 1fr; gap: 2rem; }
+    .areas__inner { grid-template-columns: 1fr; }
+    .contact__grid { grid-template-columns: 1fr; }
+    .svc__grid { grid-template-columns: repeat(2, 1fr); }
+    .rev__grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+    .gal__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* =====================================================================
+     Responsive: 680px (mobile)
+     ===================================================================== */
+  @media (max-width: 680px) {
+    .wrap { padding-inline: 1.25rem; }
+    .nav, .hdr__phone { display: none; }
+    .hdr__inner { height: 4.25rem; }
+    .svc__grid { grid-template-columns: 1fr; }
+    .rev__grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .tiles { grid-template-columns: 1fr; }
+    .areas__list { grid-template-columns: 1fr; }
+    .form__row { grid-template-columns: 1fr; }
+    .foot__inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    .gal__grid { grid-template-columns: 1fr; }
+    .gal__item--tall { grid-row: span 1; }
+    .trust__inner { gap: 0.25rem 1.25rem; }
+    .stats__grid { grid-template-columns: repeat(2, 1fr); }
+    .stats__rule { margin-bottom: 2rem; }
+    .stats__rule:last-child { margin-top: 2rem; }
+    .foot__legal { flex-direction: column; gap: 0.25rem; }
+    .partners__slot { min-width: 6rem; }
+    .hero__visual { max-width: 100%; }
+  }
+</style>
+
+<script>
+  // Animated count-up for the stat numbers when they scroll into view.
+  const els = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+</script>

@@ -1,0 +1,181 @@
+---
+/**
+ * Fixed chrome bar shown on every design page so the client can flip through all
+ * 12 options in place. Neutral styling on purpose: it is review chrome, not part
+ * of any design. Sits at the BOTTOM so it never clashes with a design's own header.
+ *
+ * Pure anchor links + a tiny vanilla-JS <select> jump. No hydration needed.
+ */
+import { designs, TOTAL_DESIGNS } from "../data/content";
+
+// Base path (e.g. "/crown-moulding-designs") so links work under a GitHub Pages subpath.
+// Strip any trailing slash so we can build "${base}/path" without double slashes.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+interface Props {
+  current: string; // e.g. "01"
+}
+const { current } = Astro.props;
+
+const idx = designs.findIndex((d) => d.id === current);
+const safeIdx = idx === -1 ? 0 : idx;
+const currentDesign = designs[safeIdx];
+const prev = designs[(safeIdx - 1 + TOTAL_DESIGNS) % TOTAL_DESIGNS];
+const next = designs[(safeIdx + 1) % TOTAL_DESIGNS];
+const position = safeIdx + 1;
+---
+
+<div class="cm-switcher" data-cm-switcher>
+  <a class="cm-switcher__home" href={`${base}/`} aria-label="Back to all designs">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span class="cm-switcher__home-label">All designs</span>
+  </a>
+
+  <div class="cm-switcher__center">
+    <a class="cm-switcher__arrow" href={`${base}/designs/${prev.id}/`} aria-label={`Previous design: ${prev.name}`}>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+
+    <label class="cm-switcher__picker">
+      <span class="cm-switcher__count">Design {position} / {TOTAL_DESIGNS}</span>
+      <select data-cm-jump aria-label="Jump to a design">
+        {
+          designs.map((d, i) => (
+            <option value={`${base}/designs/${d.id}/`} selected={d.id === current}>
+              {i + 1}. {d.name}
+            </option>
+          ))
+        }
+      </select>
+      <svg class="cm-switcher__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </label>
+
+    <a class="cm-switcher__arrow" href={`${base}/designs/${next.id}/`} aria-label={`Next design: ${next.name}`}>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="cm-switcher__name" title={currentDesign.note}>{currentDesign.name}</div>
+</div>
+
+<style>
+  .cm-switcher {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: calc(100vw - 1.5rem);
+    padding: 0.5rem 0.625rem;
+    border-radius: 9999px;
+    background: rgba(17, 19, 24, 0.92);
+    color: #f4f5f7;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.8125rem;
+  }
+  .cm-switcher__home,
+  .cm-switcher__arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: #f4f5f7;
+    text-decoration: none;
+    border-radius: 9999px;
+    padding: 0.4rem 0.6rem;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+  }
+  .cm-switcher__home:hover,
+  .cm-switcher__arrow:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .cm-switcher__center {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0 0.375rem;
+  }
+  .cm-switcher__picker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.5rem;
+  }
+  .cm-switcher__count {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    pointer-events: none;
+  }
+  .cm-switcher__chev {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  /* the select sits invisibly over the count + chevron so the whole pill is clickable */
+  .cm-switcher__picker select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .cm-switcher__name {
+    font-weight: 600;
+    color: #c8923d;
+    white-space: nowrap;
+    max-width: 12rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media (max-width: 640px) {
+    .cm-switcher__home-label,
+    .cm-switcher__name {
+      display: none;
+    }
+    .cm-switcher {
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Jump to the selected design on change.
+  document.querySelectorAll<HTMLSelectElement>("[data-cm-jump]").forEach((sel) => {
+    sel.addEventListener("change", () => {
+      if (sel.value) window.location.href = sel.value;
+    });
+  });
+
+  // Left / right arrow keys flip between designs for fast review.
+  document.addEventListener("keydown", (e) => {
+    const target = e.target as HTMLElement | null;
+    if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+    const bar = document.querySelector("[data-cm-switcher]");
+    if (!bar) return;
+    if (e.key === "ArrowLeft") {
+      const prev = bar.querySelector<HTMLAnchorElement>('a[aria-label^="Previous"]');
+      if (prev) window.location.href = prev.href;
+    } else if (e.key === "ArrowRight") {
+      const next = bar.querySelector<HTMLAnchorElement>('a[aria-label^="Next"]');
+      if (next) window.location.href = next.href;
+    }
+  });
+</script>

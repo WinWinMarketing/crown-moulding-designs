@@ -1,0 +1,48 @@
+---
+/**
+ * Shared shell for the chooser index and all 12 design pages.
+ *
+ * - Each design loads its OWN Google Fonts via the `head` slot, since fonts are a
+ *   design variable. Pass <link> tags into <slot name="head" />.
+ * - Pass `current` (e.g. "01") on a design page to render the DesignSwitcher.
+ *   Omit it on the chooser index.
+ */
+import "../styles/global.css";
+import DesignSwitcher from "../components/DesignSwitcher.astro";
+
+// Base path so the favicon resolves under the GitHub Pages subpath (no trailing slash).
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: string;
+  bodyClass?: string;
+}
+const {
+  title = "Crown Moulding Website Design Options",
+  description = "Pick your favourite homepage design for the crown moulding website.",
+  current,
+  bodyClass = "",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+    {current && <DesignSwitcher current={current} />}
+  </body>
+</html>

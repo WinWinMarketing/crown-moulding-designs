@@ -1,0 +1,1292 @@
+---
+/**
+ * DESIGN 05 — Architect Blueprint
+ * Palette: off-white #F2F0EA, ink #1A1A1A, blueprint teal #1F5F63, faint gridlines.
+ * Type: IBM Plex Mono (labels/accents) + IBM Plex Sans (body/headings).
+ * Technical blueprint aesthetic: gridlines, monospaced section labels, spec captions,
+ * numbered sections, drafting-style thin rules, crop marks, line-drawing motifs.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MouldingMotifs from "../../components/MouldingMotifs.astro";
+import {
+  meta, nav, hero, trustBar, stats, about, services, guarantee,
+  gallery, process, reviews, partners, serviceAreas, contact, footer,
+} from "../../data/content";
+
+const icons: Record<string, string> = {
+  hammer: "M14 6l4 4M3 21l9-9M14 6l3-3 4 4-3 3M8 12l8 8",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z",
+  compass: "M12 22a10 10 0 100-20 10 10 0 000 20zM16 8l-2.5 5.5L8 16l2.5-5.5z",
+  crown: "M3 18l2-9 5 5 2-7 2 7 5-5 2 9z",
+  panel: "M4 4h16v16H4zM4 10h16M10 4v16",
+  grid: "M4 4h16v16H4zM4 12h16M12 4v16",
+  ruler: "M3 8h18v8H3zM7 8v4M11 8v4M15 8v4M19 8v4",
+  wall: "M3 5h18v14H3zM3 12h18M9 5v7M15 12v7",
+  door: "M5 21V4a1 1 0 011-1h9a1 1 0 011 1v17M5 21h14M13 12h.01",
+};
+
+const sectionLabels: Record<string, string> = {
+  hero:     "SECT-01",
+  trust:    "SECT-02",
+  stats:    "SECT-03",
+  about:    "SECT-04",
+  services: "SECT-05",
+  guarantee:"SECT-06",
+  gallery:  "SECT-07",
+  process:  "SECT-08",
+  reviews:  "SECT-09",
+  partners: "SECT-10",
+  areas:    "SECT-11",
+  contact:  "SECT-12",
+};
+---
+
+<BaseLayout title="Design 05 - Architect Blueprint" current="05" bodyClass="d05">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <!-- HEADER -->
+  <header id="home" class="hdr">
+    <div class="hdr__rule" aria-hidden="true"></div>
+    <div class="wrap hdr__inner">
+      <a href="#home" class="logo" aria-label={meta.brandName + " home"}>
+        <span class="logo__mark" aria-hidden="true">
+          <MouldingMotifs name="crown" class="logo__crown" />
+        </span>
+        <span class="logo__text">{meta.brandName}</span>
+        <span class="logo__spec" aria-hidden="true">EST. 2009</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="hdr__cta">
+        <a href={meta.phoneHref} class="hdr__phone" aria-label={"Call us: " + meta.phone}>{meta.phone}</a>
+        <a href="#contact" class="btn btn--teal">Free Quote</a>
+      </div>
+    </div>
+    <div class="hdr__rule" aria-hidden="true"></div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="hero__cropmarks" aria-hidden="true">
+      <span class="cm cm--tl"></span>
+      <span class="cm cm--tr"></span>
+      <span class="cm cm--bl"></span>
+      <span class="cm cm--br"></span>
+    </div>
+    <div class="wrap hero__inner">
+      <div class="hero__left">
+        <div class="spec-label" aria-hidden="true">{sectionLabels.hero} / HERO</div>
+        <p class="hero__eyebrow">{hero.eyebrow}</p>
+        <h1 id="hero-heading" class="hero__title">{hero.headline}</h1>
+        <p class="hero__sub">{hero.subhead}</p>
+        <div class="hero__cta">
+          <a href={hero.primaryCta.href} class="btn btn--teal btn--lg">{hero.primaryCta.label}</a>
+          <a href={hero.secondaryCta.href} class="btn btn--outline btn--lg">{hero.secondaryCta.label}</a>
+        </div>
+        <div class="hero__spec-row" aria-hidden="true">
+          <span class="micro-spec">SCALE 1:1</span>
+          <span class="micro-spec">GTA REGION</span>
+          <span class="micro-spec">DRW-2026</span>
+        </div>
+      </div>
+      <div class="hero__right">
+        <div class="hero__drawing-frame">
+          <div class="drawing-corner drawing-corner--tl" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--tr" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--bl" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--br" aria-hidden="true"></div>
+          <div class="hero__art-inner">
+            <MouldingMotifs name="room" class="hero__room-art" />
+            <div class="drawing-dim drawing-dim--h" aria-hidden="true">
+              <span class="dim-line"></span>
+              <span class="dim-val">LIVING ROOM</span>
+              <span class="dim-line"></span>
+            </div>
+            <div class="drawing-dim drawing-dim--v" aria-hidden="true">
+              <span class="dim-line"></span>
+              <span class="dim-val">CROWN PROFILE</span>
+              <span class="dim-line"></span>
+            </div>
+          </div>
+          <div class="drawing-caption" aria-hidden="true">{hero.imageCaption}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust" role="region" aria-label="Trust indicators">
+    <div class="spec-label trust__sect-label" aria-hidden="true">{sectionLabels.trust}</div>
+    <div class="wrap trust__inner">
+      {trustBar.map((t) => (
+        <span class="trust__item">
+          <svg class="trust__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 8l4 4 8-8" />
+          </svg>
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats" aria-label="Company statistics">
+    <div class="spec-label stats__sect-label" aria-hidden="true">{sectionLabels.stats} / METRICS</div>
+    <div class="wrap stats__grid">
+      {stats.map((s) => (
+        <div class="stat">
+          <div class="stat__frame" aria-hidden="true">
+            <span class="stat__corner stat__corner--tl"></span>
+            <span class="stat__corner stat__corner--tr"></span>
+            <span class="stat__corner stat__corner--bl"></span>
+            <span class="stat__corner stat__corner--br"></span>
+          </div>
+          <div class="stat__num" data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</div>
+          <div class="stat__label">{s.label}</div>
+          <div class="stat__spec" aria-hidden="true">REF-0{s.value > 100 ? "B" : "A"}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about" aria-labelledby="about-heading">
+    <div class="spec-label about__sect-label" aria-hidden="true">{sectionLabels.about} / PROFILE</div>
+    <div class="wrap about__grid">
+      <div class="about__media">
+        <div class="bp-frame">
+          <div class="drawing-corner drawing-corner--tl" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--tr" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--bl" aria-hidden="true"></div>
+          <div class="drawing-corner drawing-corner--br" aria-hidden="true"></div>
+          <MouldingMotifs name="wainscot" class="bp-frame__art" />
+          <div class="bp-frame__caption">{about.imageCaption}</div>
+          <div class="bp-frame__spec" aria-hidden="true">FIG. 04A / PROFILE VIEW</div>
+        </div>
+      </div>
+      <div class="about__body">
+        <div class="sect-header">
+          <span class="mono-tag" aria-hidden="true">SECTION 04</span>
+          <h2 id="about-heading" class="h2">{about.heading}</h2>
+        </div>
+        <p class="lead">{about.body}</p>
+        <ul class="tiles" role="list">
+          {about.tiles.map((t) => (
+            <li class="tile">
+              <span class="tile__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={icons[t.icon]} />
+                </svg>
+              </span>
+              <span class="tile__txt">{t.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section section--grid-bg services" aria-labelledby="services-heading">
+    <div class="spec-label services__sect-label" aria-hidden="true">{sectionLabels.services} / SCOPE</div>
+    <div class="wrap">
+      <div class="section__head">
+        <span class="mono-tag" aria-hidden="true">SECTION 05</span>
+        <h2 id="services-heading" class="h2">{services.heading}: Crown Moulding & Finish Carpentry</h2>
+        <div class="thin-rule" aria-hidden="true"></div>
+      </div>
+      <div class="svc__grid">
+        {services.items.map((s, i) => (
+          <article class="svc">
+            <div class="svc__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</div>
+            <div class="svc__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d={icons[s.icon]} />
+              </svg>
+            </div>
+            <h3 class="svc__title">{s.title}</h3>
+            <p class="svc__blurb">{s.blurb}</p>
+            <div class="svc__spec" aria-hidden="true">SPEC-0{i + 1}</div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="guarantee" aria-labelledby="guarantee-heading">
+    <div class="spec-label guarantee__sect-label" aria-hidden="true">{sectionLabels.guarantee} / WARRANTY</div>
+    <div class="wrap guarantee__inner">
+      <div class="guarantee__main">
+        <span class="mono-tag mono-tag--light" aria-hidden="true">SECTION 06</span>
+        <h2 id="guarantee-heading" class="guarantee__promise">{guarantee.promise}</h2>
+        <p class="guarantee__speed">{guarantee.speed}</p>
+      </div>
+      <ul class="guarantee__points" role="list">
+        {guarantee.points.map((p) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12l5 5L20 6" />
+            </svg>
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="work" class="section gallery" aria-labelledby="gallery-heading">
+    <div class="spec-label gallery__sect-label" aria-hidden="true">{sectionLabels.gallery} / PORTFOLIO</div>
+    <div class="wrap">
+      <div class="section__head">
+        <span class="mono-tag" aria-hidden="true">SECTION 07</span>
+        <h2 id="gallery-heading" class="h2">Recent Projects Across the GTA</h2>
+        <p class="section__sub">{gallery.subheading}</p>
+        <div class="thin-rule" aria-hidden="true"></div>
+      </div>
+      <div class="gal__grid">
+        {gallery.items.map((g, i) => (
+          <figure class={`gal__item${i % 5 === 0 ? " gal__item--tall" : ""}`}>
+            <div class="drawing-corner drawing-corner--tl" aria-hidden="true"></div>
+            <div class="drawing-corner drawing-corner--br" aria-hidden="true"></div>
+            <MouldingMotifs
+              name={i % 3 === 0 ? "coffered" : i % 3 === 1 ? "wainscot" : "room"}
+              class="gal__art"
+            />
+            <figcaption class="gal__cap">
+              <span class="gal__num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <span class="gal__type">{g.type}</span>
+              <span class="gal__city">{g.city}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section section--grid-bg process" aria-labelledby="process-heading">
+    <div class="spec-label process__sect-label" aria-hidden="true">{sectionLabels.process} / WORKFLOW</div>
+    <div class="wrap">
+      <div class="section__head">
+        <span class="mono-tag" aria-hidden="true">SECTION 08</span>
+        <h2 id="process-heading" class="h2">Simple, Tidy, Done Right</h2>
+        <div class="thin-rule" aria-hidden="true"></div>
+      </div>
+      <ol class="steps" role="list">
+        {process.steps.map((p) => (
+          <li class="step">
+            <div class="step__num-wrap" aria-hidden="true">
+              <span class="step__num">{p.number}</span>
+              <div class="step__line" aria-hidden="true"></div>
+            </div>
+            <div class="step__body">
+              <div class="step__spec" aria-hidden="true">STEP {String(p.number).padStart(2, "0")}</div>
+              <h3 class="step__title">{p.title}</h3>
+              <p class="step__blurb">{p.blurb}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews" aria-labelledby="reviews-heading">
+    <div class="spec-label reviews__sect-label" aria-hidden="true">{sectionLabels.reviews} / FEEDBACK</div>
+    <div class="wrap">
+      <div class="section__head">
+        <span class="mono-tag" aria-hidden="true">SECTION 09</span>
+        <h2 id="reviews-heading" class="h2">{reviews.heading}</h2>
+        <div class="reviews__rating">
+          <span class="stars" aria-label={reviews.rating.toFixed(1) + " stars"}>★★★★★</span>
+          <span class="rating-val">{reviews.rating.toFixed(1)} average rating</span>
+        </div>
+        <div class="thin-rule" aria-hidden="true"></div>
+      </div>
+      <div class="rev__grid">
+        {reviews.items.map((r, i) => (
+          <blockquote class="rev">
+            <div class="rev__idx" aria-hidden="true">{String(i + 1).padStart(2, "0")}</div>
+            <span class="rev__stars" aria-label={r.stars + " stars"}>{"★".repeat(r.stars)}</span>
+            <p class="rev__quote">{r.quote}</p>
+            <footer class="rev__by">{r.name} / {r.city}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="section section--grid-bg partners" aria-labelledby="partners-heading">
+    <div class="spec-label partners__sect-label" aria-hidden="true">{sectionLabels.partners} / PARTNERS</div>
+    <div class="wrap">
+      <h2 id="partners-heading" class="eyebrow eyebrow--center">{partners.heading}</h2>
+      <div class="partners__row">
+        {Array.from({ length: partners.count }).map((_, i) => (
+          <div class="partners__slot">
+            <span class="partners__lbl" aria-hidden="true">LOGO {String(i + 1).padStart(2, "0")}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREAS -->
+  <section class="section areas" aria-labelledby="areas-heading">
+    <div class="spec-label areas__sect-label" aria-hidden="true">{sectionLabels.areas} / TERRITORY</div>
+    <div class="wrap areas__inner">
+      <div class="areas__left">
+        <span class="mono-tag" aria-hidden="true">SECTION 11</span>
+        <h2 id="areas-heading" class="h2">{serviceAreas.heading}</h2>
+        <p class="lead">{serviceAreas.intro}</p>
+      </div>
+      <ul class="areas__list" role="list" aria-label="Cities served">
+        {serviceAreas.cities.map((c, i) => (
+          <li class="areas__city">
+            <span class="areas__city-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            {c}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact" aria-labelledby="contact-heading">
+    <div class="spec-label contact__sect-label" aria-hidden="true">{sectionLabels.contact} / ENQUIRY</div>
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <span class="mono-tag mono-tag--light" aria-hidden="true">SECTION 12</span>
+        <h2 id="contact-heading" class="h2 h2--light">{contact.heading}</h2>
+        <p class="contact__sub">{contact.subcopy}</p>
+        <a href={meta.phoneHref} class="contact__phone" aria-label={"Call us: " + meta.phone}>{contact.altContact}</a>
+        <div class="contact__spec-block" aria-hidden="true">
+          <div class="contact-spec-line">RESPONSE TIME: SAME DAY</div>
+          <div class="contact-spec-line">ESTIMATES: FREE</div>
+          <div class="contact-spec-line">REGION: GTA</div>
+        </div>
+      </div>
+      <form class="form" onsubmit="return false" aria-label="Free estimate request form" novalidate>
+        <div class="form__header" aria-hidden="true">
+          <span class="mono-tag">ESTIMATE REQUEST FORM</span>
+          <span class="form__ref">REF: {meta.year}-EST</span>
+        </div>
+        <div class="form__row">
+          {contact.fields.slice(0, 3).map((f) => (
+            <label class="field">
+              <span class="field__label">{f.label}{f.required && <span aria-label="required"> *</span>}</span>
+              <input
+                type={f.type}
+                name={f.name}
+                placeholder={f.label}
+                aria-label={f.label}
+                autocomplete={f.name === "name" ? "name" : f.name === "email" ? "email" : "tel"}
+              />
+            </label>
+          ))}
+        </div>
+        <label class="field">
+          <span class="field__label">Service</span>
+          <select name="service" aria-label="Select a service">
+            {(contact.fields[3].options ?? []).map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Message</span>
+          <textarea name="message" rows={4} placeholder="Describe your project and any details that may help us quote accurately" aria-label="Project description"></textarea>
+        </label>
+        <label class="field field--file">
+          <span class="field__label">Photo of your room (optional)</span>
+          <input type="file" name="photo" accept="image/*" aria-label="Upload a room photo" />
+        </label>
+        <button type="submit" class="btn btn--teal btn--lg btn--full">{contact.submitLabel}</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot" role="contentinfo">
+    <div class="foot__rule" aria-hidden="true"></div>
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <span class="foot__brand-name">{meta.brandName}</span>
+        <p class="foot__tagline">{meta.tagline} in the {meta.serviceRegion}.</p>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <a href={meta.phoneHref}>{meta.phone}</a>
+        <a href={`mailto:${meta.email}`}>{meta.email}</a>
+        <p>{footer.hours}</p>
+      </div>
+      <div class="foot__col">
+        <h4>Service Areas</h4>
+        <p>{serviceAreas.cities.join(", ")}</p>
+      </div>
+      <div class="foot__col">
+        <h4>More</h4>
+        {footer.badges.map((b) => <span class="foot__badge">{b}</span>)}
+        <div class="foot__social">
+          {footer.socials.map((s) => <a href="#" aria-label={s + " (opens in a new tab)"}>{s}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="wrap foot__legal">
+      <span>{meta.brandName} &copy; {meta.year}. All rights reserved.</span>
+      <span class="foot__legal-spec" aria-hidden="true">DRW-SET-05 / BLUEPRINT EDITION</span>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* =====================================================================
+     PALETTE & GLOBAL (namespaced to body.d05)
+     ===================================================================== */
+  :global(body.d05) {
+    --off-white: #F2F0EA;
+    --ink:       #1A1A1A;
+    --teal:      #1F5F63;
+    --teal-dark: #174547;
+    --teal-light: #2A7A7E;
+    --grid-line: rgba(31, 95, 99, 0.10);
+    --grid-line-strong: rgba(31, 95, 99, 0.18);
+    --rule:      rgba(26, 26, 26, 0.14);
+    --rule-strong: rgba(26, 26, 26, 0.28);
+    --muted:     #5A5C5A;
+    --paper:     #FAFAF6;
+    --ink-light: rgba(26, 26, 26, 0.65);
+    margin: 0;
+    background: var(--off-white);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  :global(body.d05) * { box-sizing: border-box; }
+
+  /* =====================================================================
+     LAYOUT UTILITIES
+     ===================================================================== */
+  .wrap { max-width: 78rem; margin: 0 auto; padding-inline: 1.75rem; }
+
+  /* Blueprint gridline background (reusable) */
+  .section--grid-bg {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-color: var(--paper);
+  }
+
+  /* =====================================================================
+     TYPOGRAPHY HELPERS
+     ===================================================================== */
+  .mono-tag {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    opacity: 0.8;
+  }
+  .mono-tag--light { color: rgba(31,95,99,0.65); }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--teal);
+    margin: 0 0 0.75rem;
+  }
+  .eyebrow--center { text-align: center; }
+
+  .spec-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--teal);
+    opacity: 0.5;
+    text-transform: uppercase;
+    padding: 0.25rem var(--wrap-pad, 1.75rem);
+    border-bottom: 1px solid var(--rule);
+    background: var(--off-white);
+  }
+
+  .micro-spec {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  .h2 {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    font-size: clamp(1.55rem, 3.2vw, 2.3rem);
+    color: var(--ink);
+    margin: 0 0 1rem;
+  }
+  .h2--light { color: #fff; }
+  .lead { font-size: 1rem; color: var(--muted); line-height: 1.7; margin: 0 0 1.5rem; }
+
+  .thin-rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.25rem auto 0;
+    max-width: 3rem;
+    border-top-width: 2px;
+    border-color: var(--teal);
+    opacity: 0.4;
+  }
+
+  /* =====================================================================
+     BUTTONS
+     ===================================================================== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500; font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 1.3rem;
+    text-decoration: none; cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.15s ease;
+    text-transform: uppercase;
+  }
+  .btn--lg { padding: 0.9rem 1.75rem; font-size: 0.9rem; }
+  .btn--full { width: 100%; }
+  .btn--teal {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal);
+  }
+  .btn--teal:hover { background: var(--teal-light); border-color: var(--teal-light); transform: translateY(-1px); }
+  .btn--teal:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+  .btn--outline {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule-strong);
+  }
+  .btn--outline:hover { border-color: var(--teal); color: var(--teal); }
+  .btn--outline:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  /* =====================================================================
+     HEADER
+     ===================================================================== */
+  .hdr {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .hdr__rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--teal) 30%, var(--teal) 70%, transparent 100%);
+    opacity: 0.25;
+  }
+  .hdr__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 4.25rem; gap: 1rem;
+  }
+  .logo { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; }
+  .logo__mark { width: 1.75rem; height: 1.75rem; color: var(--teal); display: inline-flex; flex: none; }
+  .logo__crown { width: 100%; height: 100%; }
+  .logo__text {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700; color: var(--ink);
+    letter-spacing: -0.01em; font-size: 1rem;
+  }
+  .logo__spec {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; color: var(--teal);
+    letter-spacing: 0.15em; opacity: 0.6;
+    margin-left: 0.25rem;
+    align-self: flex-end; padding-bottom: 0.15rem;
+  }
+  .nav { display: flex; gap: 1.5rem; }
+  .nav a {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; font-weight: 500;
+    transition: color 0.15s;
+    padding-bottom: 0.1rem;
+    border-bottom: 1.5px solid transparent;
+  }
+  .nav a:hover { color: var(--teal); border-bottom-color: var(--teal); }
+  .nav a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .hdr__cta { display: flex; align-items: center; gap: 1rem; }
+  .hdr__phone {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--ink); text-decoration: none; white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .hdr__phone:hover { color: var(--teal); }
+  .hdr__phone:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  /* =====================================================================
+     HERO
+     ===================================================================== */
+  .hero {
+    position: relative;
+    background-color: var(--off-white);
+    background-image:
+      linear-gradient(to right, var(--grid-line-strong) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line-strong) 1px, transparent 1px);
+    background-size: 32px 32px;
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+    overflow: hidden;
+  }
+  .hero__grid-bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+
+  /* Crop marks at corners */
+  .hero__cropmarks { position: absolute; inset: 0; pointer-events: none; }
+  .cm {
+    position: absolute;
+    display: block;
+    width: 20px; height: 20px;
+  }
+  .cm::before, .cm::after {
+    content: "";
+    position: absolute;
+    background: var(--teal);
+    opacity: 0.4;
+  }
+  .cm--tl { top: 24px; left: 24px; }
+  .cm--tl::before { top: 0; left: -8px; width: 28px; height: 1px; }
+  .cm--tl::after  { top: -8px; left: 0; width: 1px; height: 28px; }
+  .cm--tr { top: 24px; right: 24px; }
+  .cm--tr::before { top: 0; right: -8px; width: 28px; height: 1px; }
+  .cm--tr::after  { top: -8px; right: 0; width: 1px; height: 28px; }
+  .cm--bl { bottom: 24px; left: 24px; }
+  .cm--bl::before { bottom: 0; left: -8px; width: 28px; height: 1px; }
+  .cm--bl::after  { bottom: -8px; left: 0; width: 1px; height: 28px; }
+  .cm--br { bottom: 24px; right: 24px; }
+  .cm--br::before { bottom: 0; right: -8px; width: 28px; height: 1px; }
+  .cm--br::after  { bottom: -8px; right: 0; width: 1px; height: 28px; }
+
+  .hero__inner {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero__left { display: flex; flex-direction: column; gap: 0; }
+  .hero__eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--teal); margin: 0 0 0.75rem; font-weight: 500;
+  }
+  .hero__title {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700; letter-spacing: -0.025em;
+    line-height: 1.06; font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--ink); margin: 0 0 1.25rem;
+  }
+  .hero__sub {
+    font-size: clamp(0.95rem, 2vw, 1.08rem);
+    color: var(--muted); margin: 0 0 2rem; line-height: 1.7;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem; }
+  .hero__spec-row {
+    display: flex; gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Hero drawing frame (right column) */
+  .hero__right { }
+  .hero__drawing-frame {
+    position: relative;
+    border: 1px solid var(--rule-strong);
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.6);
+  }
+  .drawing-corner {
+    position: absolute;
+    width: 14px; height: 14px;
+    pointer-events: none;
+  }
+  .drawing-corner::before,
+  .drawing-corner::after {
+    content: "";
+    position: absolute;
+    background: var(--teal);
+    opacity: 0.6;
+  }
+  .drawing-corner--tl { top: -1px; left: -1px; }
+  .drawing-corner--tl::before { top: 0; left: 0; width: 14px; height: 1.5px; }
+  .drawing-corner--tl::after  { top: 0; left: 0; width: 1.5px; height: 14px; }
+  .drawing-corner--tr { top: -1px; right: -1px; }
+  .drawing-corner--tr::before { top: 0; right: 0; width: 14px; height: 1.5px; }
+  .drawing-corner--tr::after  { top: 0; right: 0; width: 1.5px; height: 14px; }
+  .drawing-corner--bl { bottom: -1px; left: -1px; }
+  .drawing-corner--bl::before { bottom: 0; left: 0; width: 14px; height: 1.5px; }
+  .drawing-corner--bl::after  { bottom: 0; left: 0; width: 1.5px; height: 14px; }
+  .drawing-corner--br { bottom: -1px; right: -1px; }
+  .drawing-corner--br::before { bottom: 0; right: 0; width: 14px; height: 1.5px; }
+  .drawing-corner--br::after  { bottom: 0; right: 0; width: 1.5px; height: 14px; }
+
+  .hero__art-inner { position: relative; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+  .hero__room-art { width: 100%; height: 100%; color: var(--teal); opacity: 0.75; }
+
+  .drawing-dim {
+    position: absolute;
+    display: flex; align-items: center; gap: 0.3rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.55rem; letter-spacing: 0.12em; color: var(--teal);
+    text-transform: uppercase; opacity: 0.7;
+  }
+  .drawing-dim--h { bottom: -1.2rem; left: 0; right: 0; justify-content: center; }
+  .drawing-dim--v {
+    left: -1.1rem; top: 0; bottom: 0;
+    flex-direction: column;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+  }
+  .dim-line { flex: 1; border-top: 1px solid currentColor; opacity: 0.5; }
+  .drawing-dim--v .dim-line { border-top: none; border-left: 1px solid currentColor; flex: 1; }
+  .dim-val { white-space: nowrap; }
+  .drawing-caption {
+    margin-top: 1.75rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-align: center; text-transform: uppercase;
+    border-top: 1px solid var(--rule);
+    padding-top: 0.5rem;
+  }
+
+  /* =====================================================================
+     TRUST BAR
+     ===================================================================== */
+  .trust {
+    background: var(--teal-dark);
+    color: #fff;
+    position: relative;
+  }
+  .trust__sect-label { background: var(--teal-dark); color: rgba(255,255,255,0.5); border-bottom-color: rgba(255,255,255,0.12); }
+  .trust__inner {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.75rem 2rem; padding: 1.1rem 1.75rem;
+  }
+  .trust__item {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.45rem;
+  }
+  .trust__check { width: 0.9rem; height: 0.9rem; flex: none; color: #A8D8DA; }
+
+  /* =====================================================================
+     STATS
+     ===================================================================== */
+  .stats {
+    padding: clamp(2.5rem, 5vw, 3.5rem) 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .stats__sect-label { background: var(--paper); }
+  .stats__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; text-align: center;
+    padding-top: 0.75rem;
+  }
+  .stat { position: relative; padding: 1.75rem 1rem; }
+  .stat__frame {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .stat__corner {
+    position: absolute;
+    width: 10px; height: 10px;
+  }
+  .stat__corner::before, .stat__corner::after {
+    content: ""; position: absolute;
+    background: var(--teal); opacity: 0.35;
+  }
+  .stat__corner--tl { top: 0; left: 0; }
+  .stat__corner--tl::before { top: 0; left: 0; width: 10px; height: 1px; }
+  .stat__corner--tl::after  { top: 0; left: 0; width: 1px; height: 10px; }
+  .stat__corner--tr { top: 0; right: 0; }
+  .stat__corner--tr::before { top: 0; right: 0; width: 10px; height: 1px; }
+  .stat__corner--tr::after  { top: 0; right: 0; width: 1px; height: 10px; }
+  .stat__corner--bl { bottom: 0; left: 0; }
+  .stat__corner--bl::before { bottom: 0; left: 0; width: 10px; height: 1px; }
+  .stat__corner--bl::after  { bottom: 0; left: 0; width: 1px; height: 10px; }
+  .stat__corner--br { bottom: 0; right: 0; }
+  .stat__corner--br::before { bottom: 0; right: 0; width: 10px; height: 1px; }
+  .stat__corner--br::after  { bottom: 0; right: 0; width: 1px; height: 10px; }
+  .stat__num {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700; font-size: clamp(2rem, 4.5vw, 3rem);
+    color: var(--teal); line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat__label {
+    margin-top: 0.5rem;
+    font-size: 0.85rem; color: var(--muted); font-weight: 500;
+  }
+  .stat__spec {
+    margin-top: 0.4rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.55rem; letter-spacing: 0.15em;
+    color: var(--teal); opacity: 0.45; text-transform: uppercase;
+  }
+
+  /* =====================================================================
+     SECTIONS GENERIC
+     ===================================================================== */
+  .section { padding: clamp(3rem, 7vw, 5.5rem) 0; position: relative; }
+  .section__head { max-width: 44rem; margin: 0 auto 2.5rem; text-align: center; }
+  .section__sub { color: var(--muted); margin: 0.5rem 0 0; font-size: 0.95rem; }
+  .sect-header { margin-bottom: 1.25rem; }
+
+  /* =====================================================================
+     ABOUT
+     ===================================================================== */
+  .about { background: var(--off-white); border-bottom: 1px solid var(--rule); }
+  .about__sect-label { }
+  .about__grid {
+    display: grid; grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem); align-items: start;
+    padding-top: 0.75rem;
+  }
+  .bp-frame {
+    position: relative;
+    border: 1px solid var(--rule-strong);
+    padding: 1.25rem 1.25rem 3rem;
+    background: rgba(255,255,255,0.55);
+    aspect-ratio: 5/4;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bp-frame__art { width: 85%; height: 85%; color: var(--teal); opacity: 0.7; }
+  .bp-frame__caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0.5rem 1rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border-top: 1px solid var(--rule);
+    background: rgba(242,240,234,0.85);
+  }
+  .bp-frame__spec {
+    position: absolute; top: 0.5rem; right: 0.75rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); opacity: 0.5;
+  }
+  .tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .tile {
+    display: flex; align-items: center; gap: 0.7rem;
+    border: 1px solid var(--rule-strong); padding: 0.8rem 1rem;
+    background: var(--paper);
+    transition: border-color 0.15s;
+  }
+  .tile:hover { border-color: var(--teal); }
+  .tile__icon { width: 1.5rem; height: 1.5rem; flex: none; color: var(--teal); }
+  .tile__icon svg { width: 100%; height: 100%; }
+  .tile__txt { font-weight: 600; font-size: 0.88rem; color: var(--ink); line-height: 1.3; }
+
+  /* =====================================================================
+     SERVICES
+     ===================================================================== */
+  .services__sect-label { background: var(--paper); }
+  .svc__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong); }
+  .svc {
+    position: relative;
+    background: var(--paper);
+    padding: 1.75rem;
+    transition: background 0.15s;
+  }
+  .svc:hover { background: #fff; }
+  .svc:hover .svc__icon { color: var(--teal-light); }
+  .svc__num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.62rem; letter-spacing: 0.18em; color: var(--teal);
+    opacity: 0.5; margin-bottom: 1rem; display: block;
+  }
+  .svc__icon { width: 2.5rem; height: 2.5rem; color: var(--teal); margin-bottom: 0.9rem; transition: color 0.15s; }
+  .svc__icon svg { width: 100%; height: 100%; }
+  .svc__title { font-family: "IBM Plex Sans", sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--ink); margin: 0 0 0.5rem; }
+  .svc__blurb { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+  .svc__spec {
+    position: absolute; bottom: 0.75rem; right: 1rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.55rem; letter-spacing: 0.15em;
+    color: var(--teal); opacity: 0.3; text-transform: uppercase;
+  }
+
+  /* =====================================================================
+     GUARANTEE
+     ===================================================================== */
+  .guarantee {
+    background: var(--teal-dark); color: #fff;
+    padding: clamp(3rem, 6vw, 4.5rem) 0;
+    position: relative;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .guarantee__sect-label { background: var(--teal-dark); color: rgba(255,255,255,0.45); border-bottom-color: rgba(255,255,255,0.1); }
+  .guarantee__inner {
+    display: grid; grid-template-columns: 1.5fr 1fr;
+    gap: 2.5rem; align-items: center;
+    padding-top: 0.75rem;
+  }
+  .guarantee__promise {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem); font-weight: 700;
+    line-height: 1.3; margin: 0.5rem 0 1rem; color: #fff;
+  }
+  .guarantee__speed { color: rgba(255,255,255,0.72); margin: 0; font-size: 0.95rem; }
+  .guarantee__points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .guarantee__points li {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem; letter-spacing: 0.06em; font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.05);
+  }
+  .guarantee__points svg { width: 1.2rem; height: 1.2rem; flex: none; color: #A8D8DA; }
+
+  /* =====================================================================
+     GALLERY
+     ===================================================================== */
+  .gallery { background: var(--off-white); }
+  .gallery__sect-label { }
+  .gal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 190px;
+    gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+  }
+  .gal__item {
+    position: relative;
+    background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--teal); overflow: hidden;
+    transition: background 0.15s;
+  }
+  .gal__item:hover { background: rgba(31,95,99,0.06); }
+  .gal__item--tall { grid-row: span 2; }
+  .gal__art { width: 65%; height: 65%; opacity: 0.55; }
+  .gal__cap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    background: rgba(242,240,234,0.92);
+    border-top: 1px solid var(--rule);
+  }
+  .gal__num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; color: var(--teal); letter-spacing: 0.12em; opacity: 0.7;
+    flex: none;
+  }
+  .gal__type { font-weight: 600; font-size: 0.82rem; color: var(--ink); }
+  .gal__city { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: var(--teal); margin-left: auto; letter-spacing: 0.06em; }
+
+  /* =====================================================================
+     PROCESS
+     ===================================================================== */
+  .process__sect-label { background: var(--paper); }
+  .steps {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .step { display: flex; flex-direction: column; gap: 0; }
+  .step__num-wrap { display: flex; align-items: center; gap: 0; margin-bottom: 1.25rem; }
+  .step__num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.75rem; height: 2.75rem;
+    border: 1.5px solid var(--teal);
+    color: var(--teal);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600; font-size: 1.1rem; flex: none;
+    background: var(--paper);
+  }
+  .step__line { flex: 1; height: 1px; background: var(--rule-strong); }
+  .step:last-child .step__line { display: none; }
+  .step__body { padding: 1.25rem; border: 1px solid var(--rule); background: rgba(255,255,255,0.5); }
+  .step__spec {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; letter-spacing: 0.16em;
+    color: var(--teal); opacity: 0.55; text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .step__title { font-family: "IBM Plex Sans", sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--ink); margin: 0 0 0.4rem; }
+  .step__blurb { color: var(--muted); margin: 0; font-size: 0.92rem; }
+
+  /* =====================================================================
+     REVIEWS
+     ===================================================================== */
+  .reviews { background: var(--off-white); }
+  .reviews__sect-label { }
+  .reviews__rating { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-top: 0.4rem; }
+  .stars { color: var(--teal); letter-spacing: 0.08em; font-size: 1.1rem; }
+  .rating-val { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--muted); }
+  .rev__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .rev {
+    margin: 0;
+    border: 1px solid var(--rule-strong);
+    border-top: 2.5px solid var(--teal);
+    padding: 1.5rem;
+    background: var(--paper);
+    position: relative;
+  }
+  .rev__idx {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; color: var(--teal); letter-spacing: 0.14em; opacity: 0.4;
+  }
+  .rev__stars { color: var(--teal); letter-spacing: 0.06em; font-size: 0.95rem; }
+  .rev__quote { font-size: 0.95rem; color: var(--ink); margin: 0.75rem 0; line-height: 1.65; }
+  .rev__by {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600; color: var(--teal); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* =====================================================================
+     PARTNERS
+     ===================================================================== */
+  .partners__sect-label { background: var(--paper); }
+  .partners { background: var(--paper); }
+  .partners__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.25rem; }
+  .partners__slot {
+    display: flex; align-items: center; justify-content: center;
+    width: 9rem; height: 3.5rem;
+    border: 1px solid var(--rule-strong);
+    background: rgba(255,255,255,0.6);
+  }
+  .partners__lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase;
+  }
+
+  /* =====================================================================
+     SERVICE AREAS
+     ===================================================================== */
+  .areas { background: var(--off-white); border-top: 1px solid var(--rule); }
+  .areas__sect-label { }
+  .areas__inner {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem; align-items: start; padding-top: 0.75rem;
+  }
+  .areas__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .areas__city {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--rule-strong);
+    font-weight: 600; font-size: 0.9rem; color: var(--ink);
+    background: var(--paper);
+    transition: border-color 0.14s;
+  }
+  .areas__city:hover { border-color: var(--teal); }
+  .areas__city-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; letter-spacing: 0.14em; color: var(--teal); opacity: 0.55; flex: none;
+  }
+
+  /* =====================================================================
+     CONTACT
+     ===================================================================== */
+  .contact { background: var(--teal-dark); color: #fff; }
+  .contact__sect-label { background: var(--teal-dark); color: rgba(255,255,255,0.45); border-bottom-color: rgba(255,255,255,0.1); }
+  .contact__grid {
+    display: grid; grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-top: 0.75rem;
+    align-items: start;
+  }
+  .contact__sub { color: rgba(255,255,255,0.75); margin: 0.75rem 0 1.25rem; font-size: 0.95rem; line-height: 1.65; }
+  .contact__phone {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    color: #A8D8DA; font-size: 0.92rem; font-weight: 600;
+    text-decoration: none; letter-spacing: 0.06em;
+    margin-bottom: 1.75rem;
+  }
+  .contact__phone:hover { color: #fff; }
+  .contact__phone:focus-visible { outline: 2px solid #A8D8DA; outline-offset: 2px; }
+  .contact__spec-block {
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 1rem;
+    background: rgba(0,0,0,0.15);
+  }
+  .contact-spec-line {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.68rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.55);
+    text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .contact-spec-line:last-child { margin-bottom: 0; }
+
+  /* Form */
+  .form {
+    background: var(--paper);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .form__header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 1.25rem; margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .form__header .mono-tag { margin-bottom: 0; }
+  .form__ref {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.62rem; letter-spacing: 0.14em; color: var(--teal); opacity: 0.6;
+  }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .field__label { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+  .field input, .field select, .field textarea {
+    border: 1px solid var(--rule-strong);
+    padding: 0.7rem 0.85rem;
+    font: inherit; font-size: 0.9rem;
+    color: var(--ink); background: #fff; width: 100%;
+    transition: border-color 0.14s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 2px rgba(31,95,99,0.15);
+  }
+  .field--file input[type="file"] { padding: 0.5rem; cursor: pointer; background: var(--off-white); }
+
+  /* =====================================================================
+     FOOTER
+     ===================================================================== */
+  .foot {
+    background: var(--ink);
+    color: rgba(255,255,255,0.75);
+    padding: 3.5rem 0 0;
+  }
+  .foot__rule { height: 2px; background: var(--teal); opacity: 0.5; }
+  .foot__inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2rem; padding-bottom: 2.5rem;
+  }
+  .foot__brand-name {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700; color: #fff; font-size: 1rem; display: block; margin-bottom: 0.6rem;
+  }
+  .foot__tagline { margin: 0; font-size: 0.88rem; color: rgba(255,255,255,0.55); }
+  .foot__col h4 {
+    font-family: "IBM Plex Mono", monospace;
+    color: #fff; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    margin: 0 0 0.9rem; font-weight: 500;
+  }
+  .foot__col a, .foot__col p { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; margin: 0 0 0.45rem; }
+  .foot__col a:hover { color: #A8D8DA; }
+  .foot__col a:focus-visible { outline: 2px solid #A8D8DA; outline-offset: 2px; }
+  .foot__badge {
+    display: inline-block;
+    border: 1px solid rgba(31,95,99,0.7); color: #A8D8DA;
+    padding: 0.25rem 0.6rem; font-family: "IBM Plex Mono", monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .foot__social { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .foot__legal {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.25rem; padding-bottom: 1.5rem;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+  .foot__legal-spec {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5;
+  }
+
+  /* =====================================================================
+     RESPONSIVE
+     ===================================================================== */
+  @media (max-width: 1024px) {
+    .svc__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__right { display: none; }
+    .about__grid { grid-template-columns: 1fr; }
+    .about__media { order: -1; }
+    .guarantee__inner { grid-template-columns: 1fr; }
+    .areas__inner { grid-template-columns: 1fr; }
+    .contact__grid { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: repeat(2, 1fr); }
+    .rev__grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .step:nth-child(2) .step__line { display: none; }
+    .foot__inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 680px) {
+    .nav, .hdr__phone { display: none; }
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+    .svc__grid { grid-template-columns: 1fr; }
+    .rev__grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .step__line { display: none; }
+    .tiles { grid-template-columns: 1fr; }
+    .areas__list { grid-template-columns: 1fr; }
+    .form__row { grid-template-columns: 1fr; }
+    .foot__inner { grid-template-columns: 1fr; }
+    .gal__grid { grid-template-columns: 1fr; }
+    .gal__item--tall { grid-row: span 1; }
+    .hero__spec-row { flex-wrap: wrap; gap: 0.75rem; }
+    .trust__inner { gap: 0.6rem 1.25rem; }
+    .contact__spec-block { display: none; }
+  }
+
+  @media (max-width: 400px) {
+    .hero__cta { flex-direction: column; }
+    .btn--lg { width: 100%; justify-content: center; }
+  }
+</style>
+
+<script>
+  // Animated count-up for stat numbers when they scroll into view.
+  const els = document.querySelectorAll<HTMLElement>(".stat__num[data-count]");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      io.unobserve(el);
+      const target = Number(el.dataset.count || "0");
+      const suffix = el.dataset.suffix || "";
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach((el) => io.observe(el));
+</script>
